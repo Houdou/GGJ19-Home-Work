@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 8234085133333698152}
   - component: {fileID: 5700542691482293848}
   m_Layer: 5
-  m_Name: Thought
+  m_Name: Todo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -303,10 +303,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c45af5c4e81704dda82de7bc14039497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CenterPos: {fileID: 0}
-  RefPos: {fileID: 0}
+  CanFade: 1
   PinPos: {x: 0, y: 0, z: 0}
-  ConsequencePrefab: {fileID: 1032221464579042137, guid: 8e64ce307191f4a2a8fc9e42e76b6c14,
+  DetailOffset: {x: 0, y: 0, z: 0}
+  DetailsPrefab: {fileID: 1032221464579042137, guid: 8e64ce307191f4a2a8fc9e42e76b6c14,
     type: 3}
 --- !u!114 &5700542691482293848
 MonoBehaviour:

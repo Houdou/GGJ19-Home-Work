@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 415bb1b5c549b43ccaad2f6517575a83, type: 3}
-  m_Name: New Event
+  m_Name: PromotionEvent
   m_EditorClassIdentifier: 
-  Name: 
+  Name: PromotionEvent
   CardsGenerations: []
   DelayedCardsGenerations: []
-  StatusChanges: []
+  StatusChanges:
+  - {fileID: 11400000, guid: 7a47530704edf6d43a089d99063e6571, type: 2}
   Ending: 0

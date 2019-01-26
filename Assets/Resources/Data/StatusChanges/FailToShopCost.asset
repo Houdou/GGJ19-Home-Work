@@ -18,7 +18,7 @@ MonoBehaviour:
     Hour: 0
   OverrideTime: 0
   Location: 0
-  Money: 0
+  Money: -1000
   OverrideMoney: 0
   Energy: 0
   OverrideEnergy: 0
