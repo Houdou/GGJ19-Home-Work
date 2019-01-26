@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Task
   Location: 2
-  Cost: {fileID: 0}
+  Cost: {fileID: 11400000, guid: 7e0fe858ecae1cd43aa109e302390a85, type: 2}
   TriggerEvents: []

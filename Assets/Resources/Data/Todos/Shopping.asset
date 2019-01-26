@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2f4c23381cf24d4790a6864635482cc, type: 3}
-  m_Name: Bill
+  m_Name: Shopping
   m_EditorClassIdentifier: 
-  Name: PayBill
+  Name: Shopping
   Location: 1
-  Cost: {fileID: 11400000, guid: a10f7fa1dd7dc8d4b9ed271593ecb242, type: 2}
-  IsExpirable: 1
+  Cost: {fileID: 11400000, guid: 5abf01c3a2441ad49b6a42da90a51aa1, type: 2}
+  IsInternal: 0
+  IsExpirable: 0
   ExpiryTime:
-    Day: 2
+    Day: 0
     Hour: 0
   FulFillEvent: []
   FailedEvent:

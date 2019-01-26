@@ -87,11 +87,13 @@ public class GameMaster : MonoBehaviour {
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.T)) {
-            _eventManager.CreateCard(DictActionCardData["HouseCleaning"]);
+            _eventManager.CreateTodo(DictTodoCardData["PayBill"]);
+            //_eventManager.CreateCard(DictActionCardData["Project"]);
         }
 
         if (Input.GetKeyDown(KeyCode.Y)) {
-            _eventManager.CreateCard(DictActionCardData["Project"]);
+            _eventManager.CreateTodo(DictTodoCardData["GoShopping"]);
+            //_eventManager.CreateCard(DictActionCardData["Task"]);
         }
 
         if (Input.GetKeyDown(KeyCode.U)) {

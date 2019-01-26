@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Entertainment
   m_EditorClassIdentifier: 
   Name: Entertainment
-  Location: 3
-  Cost: {fileID: 0}
+  Location: 1
+  Cost: {fileID: 11400000, guid: 6da9a34647267fd4a962937d6acc9381, type: 2}
   TriggerEvents: []

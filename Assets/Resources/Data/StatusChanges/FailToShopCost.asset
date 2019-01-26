@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14a4fac9c036475f82efde4f69f9aa3f, type: 3}
-  m_Name: MedicalFeeCost
+  m_Name: FailToShopCost
   m_EditorClassIdentifier: 
-  Name: MedicalFeeCost
+  Name: FailToShopCost
   Time:
     Day: 0
     Hour: 0
   OverrideTime: 0
-  Location: 3
-  Money: -100000
+  Location: 0
+  Money: 0
   OverrideMoney: 0
   Energy: 0
   OverrideEnergy: 0
   PersonalHappiness: 0
   OverridePersonalHappiness: 0
-  FamilyHappiness: 0
+  FamilyHappiness: -10
   OverrideFamilyHappiness: 0
   Career: 0
   OverrideCareer: 0

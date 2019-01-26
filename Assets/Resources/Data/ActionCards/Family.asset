@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Family
   Location: 1
-  Cost: {fileID: 0}
+  Cost: {fileID: 11400000, guid: 105d4c8950696a74bba5c460a379a30e, type: 2}
   TriggerEvents: []

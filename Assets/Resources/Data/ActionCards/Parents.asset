@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1418965365c8c4045b6679181c7923c0, type: 3}
-  m_Name: Nap
+  m_Name: Parents
   m_EditorClassIdentifier: 
-  Name: Nap
+  Name: Parents
   Location: 1
-  Cost: {fileID: 11400000, guid: 74db7c03f2d0cc14888263ddac50ede9, type: 2}
+  Cost: {fileID: 11400000, guid: 2def5ea35d8316a4682c13443d450260, type: 2}
   TriggerEvents: []
