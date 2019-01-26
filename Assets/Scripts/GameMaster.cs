@@ -116,12 +116,19 @@ public class GameMaster : MonoBehaviour {
         _statusManager.Init();
         
         _statusManager.AddGameTimeStatusTrigger(DictGameTimeStatusTriggerData["GameOverByTimeTrigger"]);
+
+        _statusManager.OnGameTimeChange += (value, diff) => {
+            var realPausetime = diff.TotalHourInGame * Config.HoursInRealSecond;
+            Debug.Log($"{realPausetime}");
+            Invoke(nameof(ResetBusyStatus), realPausetime);
+        };
     }
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.T)) {
             _eventManager.CreateCard(DictActionCardData["HouseCleaning"]);
         }
+        
         if (Input.GetKeyDown(KeyCode.Y)) {
             _eventManager.CreateCard(DictActionCardData["Work"]);
         }
@@ -129,6 +136,10 @@ public class GameMaster : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.U)) {
             _statusManager.ProgressTime(GameTime.oneHour);
         }
+    }
+
+    private void ResetBusyStatus() {
+        _statusManager.Busy = false;
     }
 
     public void EndGame(GameEnding ending) {

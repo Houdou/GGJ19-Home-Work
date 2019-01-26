@@ -8,6 +8,7 @@
           <e p="Config.cs" t="Include" />
           <e p="Controllers" t="Include">
             <e p="CardController.cs" t="Include" />
+            <e p="ScheduleBar.cs" t="Include" />
             <e p="SpriteController.cs" t="Include" />
             <e p="ViewController.cs" t="Include" />
           </e>
@@ -37,7 +38,6 @@
             <e p="StripeLocations.cs" t="Include" />
             <e p="Todo.cs" t="Include" />
           </e>
-          <e p="ScheduleBar.cs" t="Include" />
           <e p="StatusManager.cs" t="Include" />
         </e>
         <e p="TextMesh Pro" t="Include">

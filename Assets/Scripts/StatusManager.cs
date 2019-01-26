@@ -71,9 +71,15 @@ public class StatusManager : MonoBehaviour {
 
     private GameStatus _status;
 
-    public event Action<int, int> OnEnergyChange;
-    public event Action<int, int> OnMoneyChange;
+    public bool Busy;
+
+    public event Action<LocationType, LocationType> OnLocationChange;
+    public event Action<int, int> OnCareerChange;
     public event Action<GameTime, GameTime> OnGameTimeChange;
+    public event Action<int, int> OnMoneyChange;
+    public event Action<int, int> OnEnergyChange;
+    public event Action<int, int> OnPersonalHappinessChange;
+    public event Action<int, int> OnFamilyHappinessChange;
     
     private List<BaseEvent> _listEvents;
     private void Awake() {
@@ -89,18 +95,17 @@ public class StatusManager : MonoBehaviour {
 
     public void Init() {
         _status = new GameStatus();
-        
+
         // Proxy the status event
-        _status.OnMoneyChange += (value, diff) => {
-            OnMoneyChange?.Invoke(value, diff);
-        };
-        _status.OnEnergyChange += (value, diff) => {
-            OnEnergyChange?.Invoke(value, diff);
-        };
-        _status.OnGameTimeChange += (value, diff) => {
-            OnGameTimeChange?.Invoke(value, diff);
-        };
-        
+        _status.OnGameTimeChange += (value, diff) => { OnGameTimeChange?.Invoke(value, diff); };
+        _status.OnLocationChange += (value, prev) => { OnLocationChange?.Invoke(value, prev); };
+        _status.OnCareerChange += (value, diff) => { OnCareerChange?.Invoke(value, diff); };
+        _status.OnGameTimeChange += (value, diff) => { OnGameTimeChange?.Invoke(value, diff); };
+        _status.OnMoneyChange += (value, diff) => { OnMoneyChange?.Invoke(value, diff); };
+        _status.OnEnergyChange += (value, diff) => { OnEnergyChange?.Invoke(value, diff); };
+        _status.OnPersonalHappinessChange += (value, diff) => { OnPersonalHappinessChange?.Invoke(value, diff); };
+        _status.OnFamilyHappinessChange += (value, diff) => { OnFamilyHappinessChange?.Invoke(value, diff); };
+
     }
 
     public void LoadStatus(GameStatus status) {
@@ -196,6 +201,9 @@ public class StatusManager : MonoBehaviour {
 
     public void ApplyStatusChange(StatusChangeData statusChange) {
         _status.Merge(statusChange);
+        
+        // TODO: Check date limit
+        
         if (statusChange.Time != GameTime.zero) {
             ProgressTime(statusChange.Time, true);
         }

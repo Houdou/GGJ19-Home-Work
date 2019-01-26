@@ -5,9 +5,10 @@ public class StatusChangeData : ScriptableObject {
 	public string Name;
 	public GameTime Time;
 
-	public int Energy;
+	public LocationType Location;
 	public int Money;
-	public int Happiness;
-	
-	// TODO: Other fields 
+	public int Energy;
+	public int PersonalHappiness;
+	public int FamilyHappiness;
+	public int Career;
 }
