@@ -6,10 +6,10 @@
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
           <e p="Config.cs" t="Include" />
-          <e p="ConsequenceController.cs" t="Include" />
           <e p="Controllers" t="Include">
             <e p="CardController.cs" t="Include" />
-            <e p="ImageExtenstion.cs" t="Include" />
+            <e p="ConsequenceController.cs" t="Include" />
+            <e p="FadeExtenstion.cs" t="Include" />
             <e p="ScheduleBar.cs" t="Include" />
             <e p="SpriteController.cs" t="Include" />
             <e p="ViewController.cs" t="Include" />
