@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14a4fac9c036475f82efde4f69f9aa3f, type: 3}
-  m_Name: HouseCleaningCost
+  m_Name: PayBillCost
   m_EditorClassIdentifier: 
-  Name: HouseCleaningCost
+  Name: PayBillCost
   Time:
     Day: 0
-    Hour: 3
+    Hour: 0
   OverrideTime: 0
   Location: 1
-  Money: 0
+  Money: -1000
   OverrideMoney: 0
-  Energy: -20
+  Energy: 0
   OverrideEnergy: 0
   PersonalHappiness: 0
   OverridePersonalHappiness: 0
-  FamilyHappiness: 10
+  FamilyHappiness: 0
   OverrideFamilyHappiness: 0
   Career: 0
   OverrideCareer: 0
