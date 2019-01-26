@@ -13,12 +13,12 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - ViewEnv
+  - ViewBackground
+  - ViewObjects
+  - ViewForeground
+  - Overlay
+  - Popup
   - 
   - 
   - 

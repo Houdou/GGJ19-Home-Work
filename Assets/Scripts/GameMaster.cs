@@ -110,6 +110,8 @@ public class GameMaster : MonoBehaviour {
     public Dictionary<string, IntStatusTriggerData> DictIntStatusTriggerData;
     public Dictionary<string, LocationStatusTriggerData> DictLocationStatusTriggerData;
     public Dictionary<string, GameTimeStatusTriggerData> DictGameTimeStatusTriggerData;
+    
+    public Dictionary<string, Sprite> DictSpriteResources;
 
     private void LoadData() {
         var actionCardData = Resources.LoadAll("Data/ActionCards", typeof(ActionCardData))
@@ -159,6 +161,22 @@ public class GameMaster : MonoBehaviour {
         foreach (var trigger in gameTimeStatusTriggerData) {
             DictGameTimeStatusTriggerData.Add(trigger.Name, trigger);
         }
+
+        var spritesResources = Resources.LoadAll("Sprites", typeof(Sprite)).Cast<Sprite>().ToArray();
+
+        DictSpriteResources = new Dictionary<string, Sprite>();
+        foreach (var sprite in spritesResources) {
+            DictSpriteResources.Add(sprite.name, sprite);
+        }
+    }
+
+    public Sprite GetSpriteResources(string id) {
+        if (!DictSpriteResources.ContainsKey(id)) {
+            Debug.LogError($"{id} sprite is not presented");
+            return null;
+        }
+
+        return DictSpriteResources[id];
     }
 
     private void SetupStatusManager() {

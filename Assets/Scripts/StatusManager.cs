@@ -70,9 +70,42 @@ public class StatusManager : MonoBehaviour {
     #endregion
 
     private GameStatus _status;
+    public ViewController View;
 
     public GameTime CurrentTime => _status.CurrentTime;
+    public LocationType Location => _status.Location;
     public bool Busy;
+
+    public int HomeLevel {
+        get {
+            if (_status.Money < 2000) {
+                return 1;
+            }
+
+            if (_status.Money < 5000) {
+                return 2;
+            }
+
+            return 3;
+        }
+    }
+
+    public int OfficeLevel {
+        get {
+            if (_status.Career < 20) {
+                return 1;
+            }
+
+            if (_status.Career < 60) {
+                return 2;
+            }
+
+            return 3;
+        }
+    }
+
+    // TODO: Not this one
+    public bool Sick => _status.Energy < 20;
 
     public event Action<LocationType, LocationType> OnLocationChange;
     public event Action<GameTime, GameTime> OnGameTimeChange;
@@ -105,6 +138,7 @@ public class StatusManager : MonoBehaviour {
         _status.OnFamilyHappinessChange += (value, diff) => { OnFamilyHappinessChange?.Invoke(value, diff); };
         _status.OnProjectProgressChange += (value, diff) => { OnProjectProgressChange?.Invoke(value, diff); };
 
+        View.Init();
     }
 
     public void LoadStatus(GameStatus status) {
@@ -256,7 +290,6 @@ public class StatusManager : MonoBehaviour {
             EventManager.Instance.ProgressTime(changes.Time);
         }
 
-
         UpdateUI();
     }
 
@@ -276,6 +309,8 @@ public class StatusManager : MonoBehaviour {
         _energyText.text = $"Energy {_status.Energy}";
         _moneyText.text = $"Money {_status.Money}";
         _timeText.text = _status.CurrentTime.ToString();
+        
+        View.UpdateUI();
     }
 
     #endregion

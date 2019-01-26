@@ -130,6 +130,7 @@ public class GameStatus {
 
 	public GameStatus(
 		GameTime gameTime = default(GameTime),
+		LocationType location = LocationType.Home,
 		int money = 100,
 		int energy = 100,
 		int personalHappiness = 80,
@@ -138,12 +139,13 @@ public class GameStatus {
 		int projectProgress = 0
 		) {
 		_currentTime = gameTime;
-		_money = Money = money;
-		_energy = Energy = energy;
-		_personalHappiness = PersonalHappiness = personalHappiness;
-		_familyHappiness = FamilyHappiness = familyHappiness;
-		_career = Career = career;
-		_projectProgress = ProjectProgress = projectProgress;
+		_location = location;
+		_money = money;
+		_energy = energy;
+		_personalHappiness = personalHappiness;
+		_familyHappiness = familyHappiness;
+		_career = career;
+		_projectProgress = projectProgress;
 	}
 
 	public void Merge(StatusChangeData changes) {
