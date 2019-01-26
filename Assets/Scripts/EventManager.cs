@@ -8,6 +8,8 @@ public class EventManager : MonoBehaviour {
 
     private static EventManager instance;
 
+    private static List<ActionCardData> ActionCards = new List<ActionCardData>();
+
     private static object _lock = new object();
 
     public static EventManager Instance {
@@ -124,10 +126,21 @@ public class EventManager : MonoBehaviour {
             return;
         }
 
+        ActionCards.Add(card);
+
         var panel = _dicLocationPanel[card.Location];
         // TODO: Use group manager to update pos
         var thoughtPos = _dicRefPos[$"{panel}CardCenterPos"].position;
         var parentTransform = _dicRefPos[$"{panel}CardContainer"]; 
+
+        if(ActionCards.Count % 2 == 0)
+        {
+            thoughtPos += new Vector3(5 + UnityEngine.Random.Range(0, 15), 125 * ActionCards.Count, 0);
+        }
+        else
+        {
+            thoughtPos += new Vector3(-5 - UnityEngine.Random.Range(0, 15), 125 * ActionCards.Count, 0);
+        }
 
         var newCard = Instantiate(ThoughtPrefab, thoughtPos, Quaternion.identity, parentTransform);
         var cardController = newCard.GetComponent<CardController>();
