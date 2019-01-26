@@ -10,5 +10,6 @@ public abstract class StatusTriggerData : ScriptableObject {
 	public ConditionOperator ConditionOperator;
 	public bool IsInnate;
 	public bool Repeat;
+	public GameTime DeltaTime;
 	public EventData[] TriggerEvents;
 }

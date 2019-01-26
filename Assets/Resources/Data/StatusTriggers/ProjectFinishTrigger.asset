@@ -15,7 +15,11 @@ MonoBehaviour:
   Name: ProjectFinishTrigger
   Field: 7
   ConditionOperator: 3
+  IsInnate: 1
   Repeat: 1
+  DeltaTime:
+    Day: 0
+    Hour: 0
   TriggerEvents:
   - {fileID: 11400000, guid: 63168429892c14f28beedc78ee4bfd2e, type: 2}
   TargetIntValue: 4

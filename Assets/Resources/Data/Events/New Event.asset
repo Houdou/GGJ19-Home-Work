@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: New Event
   m_EditorClassIdentifier: 
   Name: 
-  GenerateActions: []
+  CardsGenerations: []
+  DelayedCardsGenerations: []
   StatusChanges: []
   Ending: 0

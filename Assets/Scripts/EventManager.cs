@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.TestTools.Constraints;
 
 public class EventManager : MonoBehaviour {
     #region Singleton
@@ -71,7 +70,8 @@ public class EventManager : MonoBehaviour {
 
     #endregion
 
-    public GameObject ThoughtPrefab;
+    public GameObject CardPrefab;
+    public GameObject TodoPrefab;
     public GameObject AlertPrefab;
     public GameObject LeftPanel;
     public GameObject RightPanel;
@@ -79,8 +79,8 @@ public class EventManager : MonoBehaviour {
     private Dictionary<string, Transform> _dicRefPos;
     private Dictionary<LocationType, string> _dicLocationPanel;
 
-    private static List<Todo> _listTodo = new List<Todo>();
 
+    private static List<Todo> _listTodo = new List<Todo>();
     private static List<CardController> _listActionCards = new List<CardController>();
     private static List<CardController> _listTodoCards = new List<CardController>();
     public event Action<CardController> OnCardCreated;
@@ -121,6 +121,25 @@ public class EventManager : MonoBehaviour {
             GenerateCard(generateData);
         }
 
+        foreach (var generateData in ev.DelayedCardsGenerations) {
+            var timerTrigger = ScriptableObject.CreateInstance<GameTimeStatusTriggerData>();
+            timerTrigger.Field = StatusFields.GameTime;
+            timerTrigger.TargetGameTime = StatusManager.Instance.CurrentTime + generateData.Delay;
+            timerTrigger.ConditionOperator = ConditionOperator.GreaterOrEqual;
+            timerTrigger.Repeat = generateData.Repeat;
+            timerTrigger.DeltaTime = generateData.DeltaTime;
+            timerTrigger.Name = $"{nameof(GenerateDelayedCardsData)}From{generateData.Name}";
+
+            var generateEvent = ScriptableObject.CreateInstance<EventData>();
+            generateEvent.Name = $"{timerTrigger}Event";
+            generateEvent.CardsGenerations = new[] {generateData.GenerateData};
+
+            timerTrigger.TriggerEvents = new[] {generateEvent};
+            
+            GameMaster.Instance.DictGameTimeStatusTriggerData.Add(timerTrigger.Name, timerTrigger);
+            StatusManager.Instance.AddGameTimeStatusTrigger(timerTrigger);
+        }
+
         switch (ev.Ending) {
             // TODO : End game
             case GameEnding.GameOver:
@@ -129,37 +148,6 @@ public class EventManager : MonoBehaviour {
                 break;
         }
     }
-//
-//    public void GenerateNewGameTimeTrigger(CardType type, string cardName, GameTime time) {
-//        switch (type) {
-//            case CardType.Action: {
-//                if (!GameMaster.Instance.DictActionCardData.ContainsKey(cardName)) {
-//                    Debug.LogWarning($"{name} {type.GetDescription()}Card does not exist");
-//                    return;
-//                }
-//
-////                var trigger = ScriptableObject.CreateInstance<GenerateActionCardsData>();
-////                trigger.Name = $"Generate{cardName}Trigger";
-////                trigger.Time = StatusManager.Instance.CurrentTime + time;
-////                trigger.ActionCardsToGenerate = new[] {cardName};
-//            }
-//                break;
-//            case CardType.Todo: {
-//                if (!GameMaster.Instance.DictTodoCardData.ContainsKey(cardName)) {
-//                    Debug.LogWarning($"{name} {type.GetDescription()}Card does not exist");
-//                    return;
-//                }
-//
-//                var trigger = ScriptableObject.CreateInstance<GenerateDelayedCardsData>();
-//                trigger.Name = $"Generate{cardName}Trigger";
-//                trigger.Time = StatusManager.Instance.CurrentTime + time;
-//                trigger.TodoCardsToGenerate = new[] {cardName};
-//            }
-//                break;
-//            default:
-//                throw new ArgumentOutOfRangeException(nameof(type), type, null);
-//        }
-//    }
 
 
     public void GenerateCard(GenerateCardsData data) {
@@ -172,13 +160,13 @@ public class EventManager : MonoBehaviour {
         }
     }
 
-    public void CreateCard(ActionCardData data, bool IsEmergency = false) {
+    public void CreateCard(ActionCardData data, bool isEmergency = false) {
         if (data.Location == LocationType.Null) {
             Debug.LogWarning($"Wrong {nameof(LocationType)} passed to {nameof(CreateCard)}");
             return;
         }
 
-        var cardController = DrawCard(data, IsEmergency);
+        var cardController = DrawCard(data, isEmergency);
 
         cardController.OnClick += () => {
             if (!Operatable) return;
@@ -191,80 +179,79 @@ public class EventManager : MonoBehaviour {
             OnCardDestroyed?.Invoke(cardController);
         };
     }
+    
+    public void CreateTodo(TodoCardData data) {
+        if (data.Location == LocationType.Null) {
+            Debug.LogWarning($"Wrong {nameof(LocationType)} passed to {nameof(CreateCard)}");
+            return;
+        }
+
+        var todo = new Todo(data.IsExpirable, data.IsInternal);
+        _listTodo.Add(todo);
+
+        var cardController = DrawTodo(data);
+        cardController.OnClick += () => {
+            if (!Operatable) return;
+
+            if (data.Cost) {
+                StatusManager.Instance.ApplyStatusChange(data.Cost);
+            }
+            
+            foreach (var ev in data.FulFillEvent) {
+                ProcessEvent(ev);
+            }
+
+            if (_listTodo.Contains(todo)) {
+                _listTodo.Remove(todo);
+            }
+        };
+    }
 
 
     #region Render
 
     private CardController DrawCard(ActionCardData data, bool isEmergency) {
         var panel = _dicLocationPanel[data.Location];
-        // TODO: Use group manager to update pos
         var thoughtPos = _dicRefPos[$"{panel}CardCenterPos"].position;
         var parentTransform = _dicRefPos[$"{panel}CardContainer"];
 
         var cardIndex = _listActionCards.Count;
 
-        GameObject newCard;
-        if (!isEmergency) {
-            if (cardIndex % 2 == 0) {
-                thoughtPos += new Vector3(5 + UnityEngine.Random.Range(0, 15), 100 * cardIndex, 0);
-            }
-            else {
-                thoughtPos += new Vector3(-5 - UnityEngine.Random.Range(0, 15), 100 * cardIndex, 0);
-            }
+        thoughtPos += new Vector3(5 + UnityEngine.Random.Range(0, 15), 100 * cardIndex, 0);
 
-            newCard = Instantiate(ThoughtPrefab, thoughtPos, Quaternion.identity, parentTransform);
-        }
-        else {
-            newCard = Instantiate(AlertPrefab, thoughtPos, Quaternion.identity, parentTransform);
-        }
-
+        var newCard = Instantiate(CardPrefab, thoughtPos, Quaternion.identity, parentTransform);
         var cardController = newCard.GetComponent<CardController>();
-
-        if (isEmergency) {
-            cardController.isEmergency = true;
-        }
-
-        cardController.RefPos = _dicRefPos[$"{panel}CardRefPos"];
-        cardController.CenterPos = _dicRefPos[$"{panel}CardCenterPos"];
         cardController.PinPos = thoughtPos;
-
+        
         return cardController;
     }
     
-    private CardController DrawCard(TodoCardData data) {
+    private CardController DrawTodo(TodoCardData data) {
         var panel = _dicLocationPanel[data.Location];
         // TODO: Use group manager to update pos
         var thoughtPos = _dicRefPos[$"{panel}CardCenterPos"].position;
         var parentTransform = _dicRefPos[$"{panel}CardContainer"];
 
-        var cardIndex = _listActionCards.Count;
+        var cardIndex = _listTodoCards.Count;
 
-        GameObject newCard;
-        if (!isEmergency) {
-            if (cardIndex % 2 == 0) {
-                thoughtPos += new Vector3(5 + UnityEngine.Random.Range(0, 15), 100 * cardIndex, 0);
-            }
-            else {
-                thoughtPos += new Vector3(-5 - UnityEngine.Random.Range(0, 15), 100 * cardIndex, 0);
-            }
+        thoughtPos += new Vector3(5 + UnityEngine.Random.Range(0, 15), 100 * cardIndex, 0);
 
-            newCard = Instantiate(ThoughtPrefab, thoughtPos, Quaternion.identity, parentTransform);
-        }
-        else {
-            newCard = Instantiate(AlertPrefab, thoughtPos, Quaternion.identity, parentTransform);
-        }
-
+        var newCard = Instantiate(TodoPrefab, thoughtPos, Quaternion.identity, parentTransform);
         var cardController = newCard.GetComponent<CardController>();
-
-        if (isEmergency) {
-            cardController.isEmergency = true;
-        }
-
-        cardController.RefPos = _dicRefPos[$"{panel}CardRefPos"];
-        cardController.CenterPos = _dicRefPos[$"{panel}CardCenterPos"];
         cardController.PinPos = thoughtPos;
 
         return cardController;
+    }
+
+    public void CleanAllCard() {
+        foreach (var card in _listActionCards) {
+            OnCardDestroyed?.Invoke(card);
+            Destroy(card.gameObject);
+        }
+        foreach (var todo in _listTodoCards) {
+            OnCardDestroyed?.Invoke(todo);
+            Destroy(todo.gameObject);
+        }
     }
 
     #endregion

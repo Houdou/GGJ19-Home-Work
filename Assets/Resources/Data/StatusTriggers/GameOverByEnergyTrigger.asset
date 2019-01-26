@@ -15,7 +15,11 @@ MonoBehaviour:
   Name: GameOverByEnergyTrigger
   Field: 2
   ConditionOperator: 4
+  IsInnate: 1
   Repeat: 0
+  DeltaTime:
+    Day: 0
+    Hour: 0
   TriggerEvents:
   - {fileID: 11400000, guid: 5dd62c9a4b44a4aeebfea07903d7e76a, type: 2}
   TargetIntValue: 0

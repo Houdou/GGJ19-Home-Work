@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: ProjectProgressEvent
   m_EditorClassIdentifier: 
   Name: ProjectProgress
-  GenerateActions: []
+  CardsGenerations: []
+  DelayedCardsGenerations: []
   StatusChanges:
   - {fileID: 11400000, guid: 3e2522c24b05c4600ab5f76691b7bf3a, type: 2}
   Ending: 0

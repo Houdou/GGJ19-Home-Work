@@ -303,7 +303,7 @@ RectTransform:
   m_Children:
   - {fileID: 966311792}
   m_Father: {fileID: 1840362670}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -477,7 +477,7 @@ RectTransform:
   - {fileID: 911326019}
   - {fileID: 1993010813}
   m_Father: {fileID: 1840362670}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -607,6 +607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3359550e77714e9bb0c836fa30f0bf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsGameOver: 0
 --- !u!114 &721280162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -619,7 +620,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fef2428fcad44dea9fa49e525bf9a71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThoughtPrefab: {fileID: 1032221464579042137, guid: 00d05cd3f335f4a33bffc8b2cdaf3bd3,
+  CardPrefab: {fileID: 1032221464579042137, guid: 00d05cd3f335f4a33bffc8b2cdaf3bd3,
+    type: 3}
+  TodoPrefab: {fileID: 1032221464579042137, guid: 7257cb64968f04ebbb005f88588d0e2f,
     type: 3}
   AlertPrefab: {fileID: 1032221464579042137, guid: 36cef9943484842b0b062bbd62b178b3,
     type: 3}
@@ -1823,8 +1826,8 @@ RectTransform:
   m_Children:
   - {fileID: 275165211}
   - {fileID: 1930189192}
-  - {fileID: 592777337}
   - {fileID: 329714698}
+  - {fileID: 592777337}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

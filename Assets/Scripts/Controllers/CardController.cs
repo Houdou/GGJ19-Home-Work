@@ -4,54 +4,66 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Image))]
 public class CardController : MonoBehaviour {
-	public event Action OnClick;
-    //public event Action Hover;
+    public event Action OnClick;
 
-	public Transform CenterPos;
-	public Transform RefPos;
-	public Vector3 PinPos;
+    public Vector3 PinPos;
+    public Vector3 Offset;
 
     public GameObject ConsequencePrefab;
-    private GameObject consequence = null;
+    private GameObject _consequence;
 
-    private Image image;
-    private Color originalColor;
-    private bool FadeInComplete = false;
+    private Image _image;
 
-    public bool isEmergency = false;
+    private Color _fadeOutColor;
+    public Color OriginalColor;
 
-    public void HandleClick() {
-		OnClick?.Invoke();
-	}
+    private Color _targetColor;
 
-    public void MouseOver()
-    {
-        if(!isEmergency)
-            consequence = Instantiate(ConsequencePrefab, PinPos + new Vector3(350, 0, 0), Quaternion.identity, transform);
-    }
+    public bool IsEmergency;
 
-    public void MouseExit()
-    {
-        if (consequence != null)
-            Destroy(consequence);
-    }
+    void Awake() {
+        _image = GetComponent<Image>();
 
-    void Awake()
-    {
-        image = GetComponent<Image>();
-        originalColor = image.color;
-        image.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0);
+        _targetColor = OriginalColor = _image.color;
+        _fadeOutColor = new Color(OriginalColor.r, OriginalColor.g, OriginalColor.b, 0f);
+
+        _consequence = Instantiate(ConsequencePrefab, PinPos + Offset, Quaternion.identity, transform);
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (!FadeInComplete)
-        {
-            image.color = Color.Lerp(image.color, originalColor, 10f * Time.deltaTime);
-            FadeInComplete = (image.color == originalColor);
-        }
+    void Update() {
+        HandleFading();
+    }
+    
+    private void HandleFading() {
+        if (_image.color == _targetColor) return;
+        _image.Fade(_targetColor);
     }
 
+    public void HandleClick() {
+        OnClick?.Invoke();
+    }
+
+    public void MouseOver() {
+        if (_consequence == null) {
+            _consequence = Instantiate(ConsequencePrefab, PinPos + Offset, Quaternion.identity, transform);
+        }
+
+        _consequence.transform.localPosition = PinPos + Offset;
+        FadeIn();
+    }
+
+    public void MouseExit() {
+        FadeOut();
+    }
+
+    public void FadeIn() {
+        _targetColor = OriginalColor;
+    }
+
+    public void FadeOut() {
+        _targetColor = _fadeOutColor;
+    }
 }
