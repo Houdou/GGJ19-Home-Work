@@ -71,6 +71,7 @@ public class EventManager : MonoBehaviour {
     #endregion
 
     public GameObject ThoughtPrefab;
+    //public GameObject ConsequencePrefab;
     public GameObject LeftPanel;
     public GameObject RightPanel;
 
@@ -135,11 +136,11 @@ public class EventManager : MonoBehaviour {
 
         if(ActionCards.Count % 2 == 0)
         {
-            thoughtPos += new Vector3(5 + UnityEngine.Random.Range(0, 15), 125 * ActionCards.Count, 0);
+            thoughtPos += new Vector3(5 + UnityEngine.Random.Range(0, 15), 100 * ActionCards.Count, 0);
         }
         else
         {
-            thoughtPos += new Vector3(-5 - UnityEngine.Random.Range(0, 15), 125 * ActionCards.Count, 0);
+            thoughtPos += new Vector3(-5 - UnityEngine.Random.Range(0, 15), 100 * ActionCards.Count, 0);
         }
 
         var newCard = Instantiate(ThoughtPrefab, thoughtPos, Quaternion.identity, parentTransform);
@@ -148,18 +149,21 @@ public class EventManager : MonoBehaviour {
         cardController.RefPos = _dicRefPos[$"{panel}CardRefPos"];
         cardController.CenterPos = _dicRefPos[$"{panel}CardCenterPos"];
         cardController.PinPos = thoughtPos;
-        
-        cardController.OnClick += () => {
+
+        cardController.OnClick += () =>
+        {
             if (!Operatable) return;
-            
-            if (card.Cost) {
+
+            if (card.Cost)
+            {
                 StatusManager.Instance.ApplyStatusChange(card.Cost);
             }
 
-            if (card.Time != GameTime.zero) {
+            if (card.Time != GameTime.zero)
+            {
                 StatusManager.Instance.ProgressTime(card.Time);
             }
-            
+
             // TODO: Remove cards
             OnCardDestroyed?.Invoke(cardController);
         };
