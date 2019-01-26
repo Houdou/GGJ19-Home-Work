@@ -189,6 +189,12 @@ public class EventManager : MonoBehaviour {
         var todo = new Todo(data.IsExpirable, data.IsInternal, data.ExpiryTime + StatusManager.Instance.CurrentTime);
         _listTodo.Add(todo);
 
+        todo.OnExpire += () => {
+            foreach (var ev in data.FailedEvent) {
+                ProcessEvent(ev);
+            }
+        };
+
         var cardController = DrawTodo(data);
         cardController.OnClick += () => {
             if (!Operatable) return;
