@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -66,4 +67,50 @@ public class EventManager : MonoBehaviour {
     }
 
     #endregion
+
+    public GameObject ThoughtPrefab;
+    public GameObject LeftPanel;
+    public GameObject RightPanel;
+
+    private Dictionary<string, Transform> _dicRefPos;
+    private Dictionary<LocationType, string> _dicLocationPanel;
+
+    private void Awake() {
+        _dicRefPos = new Dictionary<string, Transform> {
+            {"leftThoughtsRefPos", LeftPanel.transform.Find("ThoughtsRefPos")},
+            {"leftThoughtsCenterPos", LeftPanel.transform.Find("ThoughtsCenterPos")},
+            {"leftThoughtsContainer", LeftPanel.transform.Find("ThoughtsContainer")},
+            {"rightThoughtsRefPos", RightPanel.transform.Find("ThoughtsRefPos")},
+            {"rightThoughtsCenterPos", RightPanel.transform.Find("ThoughtsCenterPos")},
+            {"rightThoughtsContainer", RightPanel.transform.Find("ThoughtsContainer")},
+        };
+        
+        _dicLocationPanel = new Dictionary<LocationType, string> {
+            {LocationType.Home, "left"},
+            {LocationType.Office, "right"},
+            {LocationType.Other, "right"},
+        };
+    }
+
+    private void Update() {
+        
+    }
+
+    public void CreateAction(LocationType location) {
+        if (location == LocationType.Null) {
+            Debug.LogWarning($"Wrong {nameof(LocationType)} passed to {nameof(CreateAction)}");
+            return;
+        }
+
+        var panel = _dicLocationPanel[location];
+        var thoughtPos = _dicRefPos[$"{panel}ThoughtsCenterPos"].position;
+        var parentTransform = _dicRefPos[$"{panel}ThoughtsContainer"]; 
+
+        var newCard = Instantiate(ThoughtPrefab, thoughtPos, Quaternion.identity, parentTransform);
+        var cardController = newCard.GetComponent<CardController>();
+
+        cardController.RefPos = _dicRefPos[$"{panel}ThoughtsRefPos"];
+        cardController.CenterPos = _dicRefPos[$"{panel}ThoughtsCenterPos"];
+        cardController.OnClick += () => { Debug.Log($"Clicked!!! {cardController.RefPos.position}"); };
+    }
 }

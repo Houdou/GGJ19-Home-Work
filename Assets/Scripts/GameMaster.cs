@@ -67,7 +67,17 @@ public class GameMaster : MonoBehaviour {
 
     #endregion
 
-    void Start() { }
+    private EventManager _eventManager;
+    private void Awake() {
+        _eventManager = GetComponent<EventManager>();
+    }
 
-    void Update() { }
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.T)) {
+            _eventManager.CreateAction(LocationType.Home);
+        }
+        if (Input.GetKeyDown(KeyCode.Y)) {
+            _eventManager.CreateAction(LocationType.Office);
+        }
+    }
 }

@@ -5,12 +5,19 @@ using UnityEngine;
 
 public class CardController : MonoBehaviour {
 	public event Action OnClick;
+
+	public Transform CenterPos;
+	public Transform RefPos;
+
+	private void Start() {
+		
+	}
+
+	private void Update() {
+	}
 	
-	void Start() { }
-
-	void Update() { }
-
 	public void HandleClick() {
 		OnClick?.Invoke();
 	}
+	
 }

@@ -2,9 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="09b0d69b-bc1d-4b96-b5c7-a2c7140531fd" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/LocationType.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/LocationType.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Home-Work/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Home-Work/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Home-Work/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Home-Work/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Thought.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Thought.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controllers/CardController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/CardController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EventManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EventManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMaster.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMaster.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scenes/Main.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,19 +19,108 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/GameMaster.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="79" column="58" selection-start-line="79" selection-start-column="58" selection-end-line="79" selection-end-column="58" />
+              <folding>
+                <marker date="1548466794837" expanded="true" signature="6:78" ph="..." />
+                <marker date="1548466794837" expanded="true" signature="120:3003" ph="{...}" />
+                <marker date="1548466794837" expanded="false" signature="126:2620" ph="Singleton" />
+                <marker date="1548466794837" expanded="true" signature="273:2006" ph="{...}" />
+                <marker date="1548466794837" expanded="true" signature="287:2000" ph="{...}" />
+                <marker date="1548466794837" expanded="true" signature="328:606" ph="{...}" />
+                <marker date="1548466794837" expanded="true" signature="673:1942" ph="{...}" />
+                <marker date="1548466794837" expanded="true" signature="832:1149" ph="{...}" />
+                <marker date="1548466794837" expanded="true" signature="1193:1731" ph="{...}" />
+                <marker date="1548466794837" expanded="true" signature="1731:1924" ph="{...}" />
+                <marker date="1548466794837" expanded="true" signature="2060:2530" ph="/// When Unity quits, it destroys objects in a random order. ... " />
+                <marker date="1548466794837" expanded="true" signature="2559:2604" ph="{...}" />
+                <marker date="1548466794837" expanded="true" signature="2687:2748" ph="{...}" />
+                <marker date="1548466794837" expanded="true" signature="2768:3001" ph="{...}" />
+                <marker date="1548466794837" expanded="true" signature="2811:2881" ph="{...}" />
+                <marker date="1548466794837" expanded="true" signature="2923:2995" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/EventManager.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="691">
+              <caret line="113" column="87" selection-start-line="113" selection-start-column="87" selection-end-line="113" selection-end-column="87" />
+              <folding>
+                <marker date="1548466780829" expanded="true" signature="6:92" ph="..." />
+                <marker date="1548466780829" expanded="true" signature="136:4574" ph="{...}" />
+                <marker date="1548466780829" expanded="false" signature="142:2636" ph="Singleton" />
+                <marker date="1548466780829" expanded="true" signature="289:2022" ph="{...}" />
+                <marker date="1548466780829" expanded="true" signature="303:2016" ph="{...}" />
+                <marker date="1548466780829" expanded="true" signature="344:622" ph="{...}" />
+                <marker date="1548466780829" expanded="true" signature="689:1958" ph="{...}" />
+                <marker date="1548466780829" expanded="true" signature="848:1165" ph="{...}" />
+                <marker date="1548466780829" expanded="true" signature="1209:1747" ph="{...}" />
+                <marker date="1548466780829" expanded="true" signature="1747:1940" ph="{...}" />
+                <marker date="1548466780829" expanded="true" signature="2076:2546" ph="/// When Unity quits, it destroys objects in a random order. ... " />
+                <marker date="1548466780829" expanded="true" signature="2575:2620" ph="{...}" />
+                <marker date="1548466780829" expanded="true" signature="2887:3687" ph="{...}" />
+                <marker date="1548466780829" expanded="true" signature="2944:3465" ph="{...}" />
+                <marker date="1548466780829" expanded="true" signature="3541:3680" ph="{...}" />
+                <marker date="1548466780829" expanded="true" signature="3715:3731" ph="{...}" />
+                <marker date="1548466780829" expanded="true" signature="3785:4572" ph="{...}" />
+                <marker date="1548466780829" expanded="true" signature="3830:3957" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/LocationType.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="12" selection-start-column="12" selection-end-column="12" />
+              <folding>
+                <marker date="1548465156898" expanded="true" signature="25:75" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/Controllers/CardController.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="9" column="28" lean-forward="true" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+              <folding>
+                <marker date="1548465302505" expanded="true" signature="6:92" ph="..." />
+                <marker date="1548465302505" expanded="true" signature="138:282" ph="{...}" />
+                <marker date="1548465302505" expanded="true" signature="255:280" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameMaster.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameMaster.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Controllers/CardController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EventManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/LocationType.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Scripts/GameMaster.cs" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/LocationType.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/CardController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/EventManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GameMaster.cs" />
       </list>
     </option>
   </component>
@@ -41,10 +136,54 @@
     <option name="height" value="1000" />
   </component>
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="SolutionExplorer" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="SolutionExplorer">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="Home-Work" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="Home-Work" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Assembly-CSharp" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="Home-Work" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Assembly-CSharp" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Assets" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="Home-Work" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Assembly-CSharp" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Assets" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Scripts" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="Home-Work" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Assembly-CSharp" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Assets" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Scripts" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Controllers" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+        <option name="show-all-files" value="false" />
+      </pane>
+      <pane id="FileSystemExplorer" />
+      <pane id="AssemblyExplorer" />
+      <pane id="UnityExplorer">
+        <option name="show-hidden-items" value="false" />
+      </pane>
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="Rider.DefaultBreakpoints.AreToggled" value="true" />
@@ -52,6 +191,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -91,11 +231,12 @@
       <updated>1548436117767</updated>
       <workItem from="1548436122372" duration="808000" />
       <workItem from="1548461754148" duration="83000" />
+      <workItem from="1548461854280" duration="2194000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="891000" />
+    <option name="totallyTimeSpent" value="3085000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -108,8 +249,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="260" y="71" width="1400" height="1000" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.2496318" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2496318" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Captures" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -158,14 +300,76 @@
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Controllers/CardController.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="9" column="28" lean-forward="true" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+          <folding>
+            <marker date="1548465302505" expanded="true" signature="6:92" ph="..." />
+            <marker date="1548465302505" expanded="true" signature="138:282" ph="{...}" />
+            <marker date="1548465302505" expanded="true" signature="255:280" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/LocationType.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="12" selection-start-column="12" selection-end-column="12" />
+          <folding>
+            <marker date="1548465156898" expanded="true" signature="25:75" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Assets/Scripts/GameMaster.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="17" column="1" lean-forward="true" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
+        <state relative-caret-position="272">
+          <caret line="79" column="58" selection-start-line="79" selection-start-column="58" selection-end-line="79" selection-end-column="58" />
           <folding>
-            <marker date="1548461828484" expanded="false" signature="6:78" ph="..." />
-            <marker date="1548461828484" expanded="true" signature="2550:2554" ph="{...}" />
-            <marker date="1548461828484" expanded="true" signature="2570:2574" ph="{...}" />
+            <marker date="1548466794837" expanded="true" signature="6:78" ph="..." />
+            <marker date="1548466794837" expanded="true" signature="120:3003" ph="{...}" />
+            <marker date="1548466794837" expanded="false" signature="126:2620" ph="Singleton" />
+            <marker date="1548466794837" expanded="true" signature="273:2006" ph="{...}" />
+            <marker date="1548466794837" expanded="true" signature="287:2000" ph="{...}" />
+            <marker date="1548466794837" expanded="true" signature="328:606" ph="{...}" />
+            <marker date="1548466794837" expanded="true" signature="673:1942" ph="{...}" />
+            <marker date="1548466794837" expanded="true" signature="832:1149" ph="{...}" />
+            <marker date="1548466794837" expanded="true" signature="1193:1731" ph="{...}" />
+            <marker date="1548466794837" expanded="true" signature="1731:1924" ph="{...}" />
+            <marker date="1548466794837" expanded="true" signature="2060:2530" ph="/// When Unity quits, it destroys objects in a random order. ... " />
+            <marker date="1548466794837" expanded="true" signature="2559:2604" ph="{...}" />
+            <marker date="1548466794837" expanded="true" signature="2687:2748" ph="{...}" />
+            <marker date="1548466794837" expanded="true" signature="2768:3001" ph="{...}" />
+            <marker date="1548466794837" expanded="true" signature="2811:2881" ph="{...}" />
+            <marker date="1548466794837" expanded="true" signature="2923:2995" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/EventManager.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="691">
+          <caret line="113" column="87" selection-start-line="113" selection-start-column="87" selection-end-line="113" selection-end-column="87" />
+          <folding>
+            <marker date="1548466780829" expanded="true" signature="6:92" ph="..." />
+            <marker date="1548466780829" expanded="true" signature="136:4574" ph="{...}" />
+            <marker date="1548466780829" expanded="false" signature="142:2636" ph="Singleton" />
+            <marker date="1548466780829" expanded="true" signature="289:2022" ph="{...}" />
+            <marker date="1548466780829" expanded="true" signature="303:2016" ph="{...}" />
+            <marker date="1548466780829" expanded="true" signature="344:622" ph="{...}" />
+            <marker date="1548466780829" expanded="true" signature="689:1958" ph="{...}" />
+            <marker date="1548466780829" expanded="true" signature="848:1165" ph="{...}" />
+            <marker date="1548466780829" expanded="true" signature="1209:1747" ph="{...}" />
+            <marker date="1548466780829" expanded="true" signature="1747:1940" ph="{...}" />
+            <marker date="1548466780829" expanded="true" signature="2076:2546" ph="/// When Unity quits, it destroys objects in a random order. ... " />
+            <marker date="1548466780829" expanded="true" signature="2575:2620" ph="{...}" />
+            <marker date="1548466780829" expanded="true" signature="2887:3687" ph="{...}" />
+            <marker date="1548466780829" expanded="true" signature="2944:3465" ph="{...}" />
+            <marker date="1548466780829" expanded="true" signature="3541:3680" ph="{...}" />
+            <marker date="1548466780829" expanded="true" signature="3715:3731" ph="{...}" />
+            <marker date="1548466780829" expanded="true" signature="3785:4572" ph="{...}" />
+            <marker date="1548466780829" expanded="true" signature="3830:3957" ph="{...}" />
           </folding>
         </state>
       </provider>
