@@ -9,13 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14a4fac9c036475f82efde4f69f9aa3f, type: 3}
-  m_Name: FailToPayBillChanges
+  m_Script: {fileID: 11500000, guid: 415bb1b5c549b43ccaad2f6517575a83, type: 3}
+  m_Name: DiseaseHighFamilyEvent
   m_EditorClassIdentifier: 
-  Name: FailToPayBillChanges
-  Time:
-    Day: 0
-    Hour: 0
-  Energy: 0
-  Money: -300
-  Happiness: -20
+  Name: DiseaseHighFamilyEvent
+  GenerateActions: []
+  StatusChanges:
+  - {fileID: 0}
+  Ending: 0
