@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f4c23381cf24d4790a6864635482cc, type: 3}
+  m_Name: Sick
+  m_EditorClassIdentifier: 
+  Name: Sick
+  Location: 0
+  Cost: {fileID: 11400000, guid: 0aead29aee54b9242b47a8cb32b2e316, type: 2}
+  IsInternal: 0
+  IsExpirable: 0
+  ExpiryTime:
+    Day: 0
+    Hour: 0
+  FulFillEvent: []
+  FailedEvent: []
