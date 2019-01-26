@@ -193,6 +193,10 @@ public class EventManager : MonoBehaviour {
             foreach (var ev in data.FailedEvent) {
                 ProcessEvent(ev);
             }
+            
+            if (_listTodo.Contains(todo)) {
+                _listTodo.Remove(todo);
+            }
         };
 
         var cardController = DrawTodo(data);
