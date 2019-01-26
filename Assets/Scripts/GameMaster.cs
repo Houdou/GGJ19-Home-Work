@@ -98,6 +98,7 @@ public class GameMaster : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.U)) {
             _eventManager.ProgressTime(GameTime.oneHour);
+            _statusManager.UpdateUI();
         }
     }
 
@@ -105,7 +106,7 @@ public class GameMaster : MonoBehaviour {
 
     public Dictionary<string, ActionCardData> DictActionCardData;
     public Dictionary<string, TodoCardData> DictTodoCardData;
-    public Dictionary<string, GenerateDelayedCardsData> DictGenerateTodoCardsData;
+    public Dictionary<string, GenerateDelayedCardsData> DictGenerateDelayedCardsData;
     public Dictionary<string, IntStatusTriggerData> DictIntStatusTriggerData;
     public Dictionary<string, LocationStatusTriggerData> DictLocationStatusTriggerData;
     public Dictionary<string, GameTimeStatusTriggerData> DictGameTimeStatusTriggerData;
@@ -127,12 +128,12 @@ public class GameMaster : MonoBehaviour {
             DictTodoCardData.Add(card.Name, card);
         }
 
-        var generateTodoCardData = Resources.LoadAll("Data/TodoCards", typeof(GenerateDelayedCardsData))
+        var generateDelayedCardsData = Resources.LoadAll("Data/GenerateDelayedCards", typeof(GenerateDelayedCardsData))
             .Cast<GenerateDelayedCardsData>().ToArray();
 
-        DictGenerateTodoCardsData = new Dictionary<string, GenerateDelayedCardsData>();
-        foreach (var card in generateTodoCardData) {
-            DictGenerateTodoCardsData.Add(card.Name, card);
+        DictGenerateDelayedCardsData = new Dictionary<string, GenerateDelayedCardsData>();
+        foreach (var card in generateDelayedCardsData) {
+            DictGenerateDelayedCardsData.Add(card.Name, card);
         }
 
         var intStatusTriggerData = Resources.LoadAll("Data/StatusTriggers", typeof(IntStatusTriggerData))
