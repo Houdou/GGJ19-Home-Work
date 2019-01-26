@@ -9,7 +9,7 @@ public static class Config {
 	public static readonly int HoursInDay = 10;
 	public static readonly float HoursInRealSecond = 0.5f;
 
-	public static readonly int VerticalStep = 125;
+	public static readonly int CardVerticalStep = 60;
 
 	public static readonly Color SpriteFadeOutColor = new Color(1f, 1f, 1f, 0f);
 	public static readonly Color SpriteFadeInColor = new Color(1f, 1f, 1f, 1f);

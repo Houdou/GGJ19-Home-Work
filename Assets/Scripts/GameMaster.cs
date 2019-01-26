@@ -87,8 +87,8 @@ public class GameMaster : MonoBehaviour {
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.T)) {
-            _eventManager.CreateTodo(DictTodoCardData["BlackFriday"]);
-            //_eventManager.CreateCard(DictActionCardData["Project"]);
+            //_eventManager.CreateTodo(DictTodoCardData["BlackFriday"]);
+            _eventManager.CreateCard(DictActionCardData["Project"]);
         }
 
         if (Input.GetKeyDown(KeyCode.Y)) {
@@ -98,7 +98,6 @@ public class GameMaster : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.U)) {
             _eventManager.ProgressTime(GameTime.oneHour);
-            _statusManager.UpdateUI();
         }
     }
 
@@ -184,7 +183,6 @@ public class GameMaster : MonoBehaviour {
 
         _statusManager.OnGameTimeChange += (value, diff) => {
             var realPauseTime = diff.TotalHourInGame * Config.HoursInRealSecond;
-            Debug.Log($"{realPauseTime}");
             Invoke(nameof(ResetBusyStatus), realPauseTime);
         };
 

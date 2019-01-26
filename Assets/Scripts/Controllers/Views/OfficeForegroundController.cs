@@ -4,10 +4,8 @@ public class OfficeForegroundController : CrossFadeSpriteController {
 		var officeLevel = statusManager.OfficeLevel;
 		var time = statusManager.CurrentTime;
 		var location = statusManager.Location;
-		if (location != LocationType.Office) {
-			return "PlaceHolder";
-		}
+		var attr = location == LocationType.Office ? time.IsNight ? "Night" : "Day" : "Fade";
 
-		return $"Office-{officeLevel}-Foreground-{(time.IsNight ? "Night" : "Day")}";
+		return $"Office-{officeLevel}-Foreground-{attr}";
 	}
 }

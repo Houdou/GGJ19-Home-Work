@@ -89,10 +89,10 @@ public class EventManager : MonoBehaviour {
     private void Awake() {
         _dicRefPos = new Dictionary<string, Transform> {
             {"leftCardRefPos", LeftPanel.transform.Find("CardRefPos")},
-            {"leftCardCenterPos", LeftPanel.transform.Find("CardCenterPos")},
+            {"leftTodoRefPos", LeftPanel.transform.Find("TodoRefPos")},
             {"leftCardContainer", LeftPanel.transform.Find("CardContainer")},
             {"rightCardRefPos", RightPanel.transform.Find("CardRefPos")},
-            {"rightCardCenterPos", RightPanel.transform.Find("CardCenterPos")},
+            {"rightTodoRefPos", RightPanel.transform.Find("TodoRefPos")},
             {"rightCardContainer", RightPanel.transform.Find("CardContainer")},
         };
 
@@ -174,9 +174,8 @@ public class EventManager : MonoBehaviour {
             if (data.Cost) {
                 StatusManager.Instance.ApplyStatusChange(data.Cost);
             }
-
-            // TODO: Remove cards
-            OnCardDestroyed?.Invoke(cardController);
+            
+            ClearActionCards();
         };
     }
 
@@ -194,9 +193,7 @@ public class EventManager : MonoBehaviour {
                 ProcessEvent(ev);
             }
             
-            if (_listTodo.Contains(todo)) {
-                _listTodo.Remove(todo);
-            }
+            _listTodo.Remove(todo);
         };
 
         var cardController = DrawTodo(data);
@@ -211,9 +208,7 @@ public class EventManager : MonoBehaviour {
                 ProcessEvent(ev);
             }
 
-            if (_listTodo.Contains(todo)) {
-                _listTodo.Remove(todo);
-            }
+            _listTodo.Remove(todo);
         };
     }
 
@@ -222,46 +217,58 @@ public class EventManager : MonoBehaviour {
 
     private CardController DrawCard(ActionCardData data, bool isEmergency) {
         var panel = _dicLocationPanel[data.Location];
-        var thoughtPos = _dicRefPos[$"{panel}CardCenterPos"].position;
+        var pos = _dicRefPos[$"{panel}CardRefPos"].position;
         var parentTransform = _dicRefPos[$"{panel}CardContainer"];
-
         var cardIndex = _listActionCards.Count;
 
-        thoughtPos += new Vector3(5 + UnityEngine.Random.Range(0, 15), 100 * cardIndex, 0);
+        pos += new Vector3(0f, -Config.CardVerticalStep * cardIndex, 0f);
 
-        var newCard = Instantiate(CardPrefab, thoughtPos, Quaternion.identity, parentTransform);
+        var newCard = Instantiate(CardPrefab, pos, Quaternion.identity, parentTransform);
         var cardController = newCard.GetComponent<CardController>();
-        cardController.PinPos = thoughtPos;
+        cardController.DetailOffset = new Vector2(0f, 100f);
+        cardController.PinPos = pos;
+        cardController.GetComponentInChildren<TextMeshProUGUI>().text = data.Name;
+        _listActionCards.Add(cardController);
 
         return cardController;
     }
 
     private CardController DrawTodo(TodoCardData data) {
         var panel = _dicLocationPanel[data.Location];
-        var thoughtPos = _dicRefPos[$"{panel}CardCenterPos"].position;
+        var pos = _dicRefPos[$"{panel}TodoRefPos"].position;
         var parentTransform = _dicRefPos[$"{panel}CardContainer"];
-
         var cardIndex = _listTodoCards.Count;
 
-        thoughtPos += new Vector3(5 + UnityEngine.Random.Range(0, 15), 100 * cardIndex, 0);
+        pos += new Vector3(0f, -Config.CardVerticalStep * cardIndex, 0f);
 
-        var newCard = Instantiate(TodoPrefab, thoughtPos, Quaternion.identity, parentTransform);
+        var newCard = Instantiate(TodoPrefab, pos, Quaternion.identity, parentTransform);
         var cardController = newCard.GetComponent<CardController>();
-        cardController.PinPos = thoughtPos;
+        cardController.PinPos = pos;
+        cardController.GetComponentInChildren<TextMeshProUGUI>().text = data.Name;
+        _listTodoCards.Add(cardController);
 
         return cardController;
     }
 
-    public void CleanAllCard() {
+    public void ClearAllCards() {
+        ClearActionCards();
+        ClearTodoCards();
+    }
+
+    public void ClearActionCards() {
         foreach (var card in _listActionCards) {
             OnCardDestroyed?.Invoke(card);
             Destroy(card.gameObject);
         }
+        _listActionCards.Clear();
+    }
 
+    public void ClearTodoCards() {
         foreach (var todo in _listTodoCards) {
             OnCardDestroyed?.Invoke(todo);
             Destroy(todo.gameObject);
         }
+        _listTodoCards.Clear();
     }
 
     #endregion

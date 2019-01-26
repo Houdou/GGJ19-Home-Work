@@ -8,6 +8,7 @@ public class StatusChangeData : ScriptableObject {
 	public bool OverrideTime;
 
 	public LocationType Location;
+	public bool OverrideLocation;
 	
 	public int Money;
 	public bool OverrideMoney;

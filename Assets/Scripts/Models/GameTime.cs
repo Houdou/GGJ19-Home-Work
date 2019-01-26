@@ -47,7 +47,7 @@ public struct GameTime {
 
 	public int TotalHourInGame => Day * Config.HoursInDay + Hour;
 	public bool IsWeekDay => Day % Config.DaysInWeek < Config.WorkDayInWeek;
-	public bool IsNight => Day % 2 == 0;
+	public bool IsNight => Day % 2 == 1;
 
 	public static GameTime operator +(GameTime lhs, GameTime rhs) {
 		return new GameTime(lhs.Day + rhs.Day, lhs.Hour + rhs.Hour);

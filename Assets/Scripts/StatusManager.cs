@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StatusManager : MonoBehaviour {
     #region Singleton
@@ -119,7 +120,10 @@ public class StatusManager : MonoBehaviour {
     private void Awake() {
         _energyText = EnergyUI.GetComponentInChildren<TextMeshProUGUI>();
         _moneyText = MoneyUI.GetComponentInChildren<TextMeshProUGUI>();
-        _timeText = TimeUI.GetComponentInChildren<TextMeshProUGUI>();
+        _personalText = PersonalHappinessUI.GetComponentInChildren<TextMeshProUGUI>();
+        _familyText = FamilyHappinessUI.GetComponentInChildren<TextMeshProUGUI>();
+        _careerText = CareerUI.GetComponentInChildren<TextMeshProUGUI>();
+        _dayText = DayUI.GetComponentInChildren<TextMeshProUGUI>();
     }
 
     private void Update() { }
@@ -139,14 +143,18 @@ public class StatusManager : MonoBehaviour {
         _status.OnProjectProgressChange += (value, diff) => { OnProjectProgressChange?.Invoke(value, diff); };
 
         View.Init();
+        View.UpdateUI();
+        UpdateUI();
     }
 
     public void LoadStatus(GameStatus status) {
         _status.Replace(status);
+        UpdateUI();
     }
 
     public void ProgressTime(GameTime time) {
         _status.CurrentTime += time;
+        UpdateUI();
     }
 
     #region StatusTrigger
@@ -302,13 +310,25 @@ public class StatusManager : MonoBehaviour {
     private TextMeshProUGUI _energyText;
     public GameObject MoneyUI;
     private TextMeshProUGUI _moneyText;
-    public GameObject TimeUI;
-    private TextMeshProUGUI _timeText;
+    public GameObject PersonalHappinessUI;
+    private TextMeshProUGUI _personalText;
+    public GameObject FamilyHappinessUI;
+    private TextMeshProUGUI _familyText;
+    public GameObject CareerUI;
+    private TextMeshProUGUI _careerText;
+    public GameObject DayUI;
+    private TextMeshProUGUI _dayText;
+    public TimeBarController TimeBar;
 
     public void UpdateUI() {
-        _energyText.text = $"Energy {_status.Energy}";
-        _moneyText.text = $"Money {_status.Money}";
-        _timeText.text = _status.CurrentTime.ToString();
+        _energyText.text = $"{_status.Energy}%";
+        _moneyText.text = $"{_status.Money}HKD";
+        _personalText.text = $"{_status.PersonalHappiness}%";
+        _familyText.text = $"{_status.FamilyHappiness}%";
+        _careerText.text = $"{_status.Career}%";
+        _dayText.text = $"Day: {_status.CurrentTime.Day / 2 + 1}";
+        TimeBar.TargetAmount =
+            _status.CurrentTime.TotalHourInGame % (2f * Config.HoursInDay) / (2f * Config.HoursInDay);
         
         View.UpdateUI();
     }

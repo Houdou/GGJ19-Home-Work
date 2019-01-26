@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ViewController : MonoBehaviour {
 	public CrossFadeSpriteController HomeBackground;
+	public CrossFadeSpriteController HomeForeground;
 	public CrossFadeSpriteController HomeMan;
 	public CrossFadeSpriteController HomeWoman;
 	public CrossFadeSpriteController OfficeSky;
@@ -14,11 +15,12 @@ public class ViewController : MonoBehaviour {
 
 	public void Init() {
 		HomeBackground.Init("Home-1-Background-Day");
+		HomeForeground.Init("PlaceHolder");
 		HomeMan.Init("Home-Man-Day");
 		HomeWoman.Init("Home-Woman-Day");
 		
-		OfficeBackground.Init("Office-1-Background-Fade");
-		OfficeForeground.Init("PlaceHolder");
+		OfficeBackground.Init("Office-1-Background-Day");
+		OfficeForeground.Init("Office-1-Foreground-Fade");
 		OfficeMan.Init("PlaceHolder");
 	}
 
@@ -28,8 +30,12 @@ public class ViewController : MonoBehaviour {
 
 	public void UpdateUI() {
 		HomeBackground.CheckStatus();
+		HomeForeground.CheckStatus();
 		HomeMan.CheckStatus();
 		HomeWoman.CheckStatus();
+		OfficeBackground.CheckStatus();
+		OfficeForeground.CheckStatus();
+		OfficeMan.CheckStatus();
 	}
 	
 }

@@ -24,6 +24,9 @@ public class GameStatus {
 			return _location;
 		}
 		set {
+			if (value == LocationType.Null)
+				return;
+			
 			var prev = _location;
 			if (value != prev) {
 				OnLocationChange?.Invoke(value, prev);
@@ -139,13 +142,13 @@ public class GameStatus {
 		int projectProgress = 0
 		) {
 		_currentTime = gameTime;
-		_location = location;
-		_money = money;
-		_energy = energy;
-		_personalHappiness = personalHappiness;
-		_familyHappiness = familyHappiness;
-		_career = career;
-		_projectProgress = projectProgress;
+		_location = Location = location;
+		_money = Money = money;
+		_energy = Energy = energy;
+		_personalHappiness = PersonalHappiness = personalHappiness;
+		_familyHappiness = FamilyHappiness = familyHappiness;
+		_career = Career = career;
+		_projectProgress = ProjectProgress = projectProgress;
 	}
 
 	public void Merge(StatusChangeData changes) {
@@ -191,7 +194,7 @@ public class GameStatus {
 			ProjectProgress += changes.ProjectProgress;
 		}
 
-		if (changes.Location != LocationType.Null) {
+		if (changes.OverrideLocation && changes.Location != LocationType.Null) {
 			Location = changes.Location;
 		}
 	}
