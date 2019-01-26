@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class EventManager : MonoBehaviour {
     #region Singleton
@@ -71,7 +73,7 @@ public class EventManager : MonoBehaviour {
     #endregion
 
     public GameObject ThoughtPrefab;
-    //public GameObject ConsequencePrefab;
+    public GameObject AlertPrefab;
     public GameObject LeftPanel;
     public GameObject RightPanel;
 
@@ -127,24 +129,35 @@ public class EventManager : MonoBehaviour {
             return;
         }
 
-        ActionCards.Add(card);
-
         var panel = _dicLocationPanel[card.Location];
         // TODO: Use group manager to update pos
         var thoughtPos = _dicRefPos[$"{panel}CardCenterPos"].position;
-        var parentTransform = _dicRefPos[$"{panel}CardContainer"]; 
+        var parentTransform = _dicRefPos[$"{panel}CardContainer"];
 
-        if(ActionCards.Count % 2 == 0)
+        GameObject newCard;
+        if (!card.isEmergency)
         {
-            thoughtPos += new Vector3(5 + UnityEngine.Random.Range(0, 15), 100 * ActionCards.Count, 0);
+            ActionCards.Add(card);
+            if (ActionCards.Count % 2 == 0)
+            {
+                thoughtPos += new Vector3(5 + UnityEngine.Random.Range(0, 15), 100 * ActionCards.Count, 0);
+            }
+            else
+            {
+                thoughtPos += new Vector3(-5 - UnityEngine.Random.Range(0, 15), 100 * ActionCards.Count, 0);
+            }
+            newCard = Instantiate(ThoughtPrefab, thoughtPos, Quaternion.identity, parentTransform);
         }
         else
         {
-            thoughtPos += new Vector3(-5 - UnityEngine.Random.Range(0, 15), 100 * ActionCards.Count, 0);
+            newCard = Instantiate(AlertPrefab, thoughtPos, Quaternion.identity, parentTransform);
         }
-
-        var newCard = Instantiate(ThoughtPrefab, thoughtPos, Quaternion.identity, parentTransform);
         var cardController = newCard.GetComponent<CardController>();
+
+        if (card.isEmergency)
+        {
+            cardController.isEmergency = true;
+        }
 
         cardController.RefPos = _dicRefPos[$"{panel}CardRefPos"];
         cardController.CenterPos = _dicRefPos[$"{panel}CardCenterPos"];
@@ -170,5 +183,6 @@ public class EventManager : MonoBehaviour {
 
         OnCardCreated?.Invoke(cardController);
     }
+
     #endregion
 }

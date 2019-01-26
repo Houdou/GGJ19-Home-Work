@@ -6,6 +6,8 @@ using UnityEngine;
 public class ActionCardData : ScriptableObject {
 	public string Name;
 	public LocationType Location;
+
+    public bool isEmergency;
 	
 	public GameTime Time;
 	public int Energy;

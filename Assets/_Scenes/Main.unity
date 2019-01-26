@@ -493,6 +493,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ThoughtPrefab: {fileID: 1032221464579042137, guid: 00d05cd3f335f4a33bffc8b2cdaf3bd3,
     type: 3}
+  AlertPrefab: {fileID: 1032221464579042137, guid: 36cef9943484842b0b062bbd62b178b3,
+    type: 3}
   LeftPanel: {fileID: 1793285974}
   RightPanel: {fileID: 215661303}
 --- !u!114 &721280163

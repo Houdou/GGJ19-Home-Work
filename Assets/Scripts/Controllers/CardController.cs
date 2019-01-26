@@ -19,14 +19,16 @@ public class CardController : MonoBehaviour {
     private Color originalColor;
     private bool FadeInComplete = false;
 
+    public bool isEmergency = false;
+
     public void HandleClick() {
 		OnClick?.Invoke();
 	}
 
     public void MouseOver()
     {
-        Debug.Log("Mouse Over");
-        consequence = Instantiate(ConsequencePrefab, PinPos + new Vector3(350, 0, 0), Quaternion.identity, transform);
+        if(!isEmergency)
+            consequence = Instantiate(ConsequencePrefab, PinPos + new Vector3(350, 0, 0), Quaternion.identity, transform);
     }
 
     public void MouseExit()
