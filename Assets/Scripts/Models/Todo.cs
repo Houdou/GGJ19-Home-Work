@@ -3,14 +3,15 @@ using System;
 public class Todo : BaseEvent {
 	public bool IsInternal;
 	public bool IsExpirable;
-	public GameTime ExpireTime;
+	public GameTime ExpiryTimestamp;
 
-	public bool IsExpired => IsExpirable && CurrentTime >= ExpireTime;
-	public GameTime RemainingTime => ExpireTime - CurrentTime;
+	public bool IsExpired => IsExpirable && CurrentTime >= ExpiryTimestamp;
+	public GameTime RemainingTime => ExpiryTimestamp - CurrentTime;
 	
-	public Todo(bool isExpirable, bool isInternal) {
+	public Todo(bool isExpirable, bool isInternal, GameTime expiryTimestamp) {
 		IsExpirable = isExpirable;
 		IsInternal = isInternal;
+		ExpiryTimestamp = expiryTimestamp;
 	}
 
 	public event Action OnExpire;

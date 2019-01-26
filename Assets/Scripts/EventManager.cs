@@ -135,7 +135,7 @@ public class EventManager : MonoBehaviour {
             generateEvent.CardsGenerations = new[] {generateData.GenerateData};
 
             timerTrigger.TriggerEvents = new[] {generateEvent};
-            
+
             GameMaster.Instance.DictGameTimeStatusTriggerData.Add(timerTrigger.Name, timerTrigger);
             StatusManager.Instance.AddGameTimeStatusTrigger(timerTrigger);
         }
@@ -179,14 +179,14 @@ public class EventManager : MonoBehaviour {
             OnCardDestroyed?.Invoke(cardController);
         };
     }
-    
+
     public void CreateTodo(TodoCardData data) {
         if (data.Location == LocationType.Null) {
             Debug.LogWarning($"Wrong {nameof(LocationType)} passed to {nameof(CreateCard)}");
             return;
         }
 
-        var todo = new Todo(data.IsExpirable, data.IsInternal);
+        var todo = new Todo(data.IsExpirable, data.IsInternal, data.ExpiryTime + StatusManager.Instance.CurrentTime);
         _listTodo.Add(todo);
 
         var cardController = DrawTodo(data);
@@ -196,7 +196,7 @@ public class EventManager : MonoBehaviour {
             if (data.Cost) {
                 StatusManager.Instance.ApplyStatusChange(data.Cost);
             }
-            
+
             foreach (var ev in data.FulFillEvent) {
                 ProcessEvent(ev);
             }
@@ -222,10 +222,10 @@ public class EventManager : MonoBehaviour {
         var newCard = Instantiate(CardPrefab, thoughtPos, Quaternion.identity, parentTransform);
         var cardController = newCard.GetComponent<CardController>();
         cardController.PinPos = thoughtPos;
-        
+
         return cardController;
     }
-    
+
     private CardController DrawTodo(TodoCardData data) {
         var panel = _dicLocationPanel[data.Location];
         var thoughtPos = _dicRefPos[$"{panel}CardCenterPos"].position;
@@ -247,6 +247,7 @@ public class EventManager : MonoBehaviour {
             OnCardDestroyed?.Invoke(card);
             Destroy(card.gameObject);
         }
+
         foreach (var todo in _listTodoCards) {
             OnCardDestroyed?.Invoke(todo);
             Destroy(todo.gameObject);
