@@ -20,13 +20,13 @@ MonoBehaviour:
   Location: 0
   Money: 0
   OverrideMoney: 0
-  Energy: 0
+  Energy: -8
   OverrideEnergy: 0
   PersonalHappiness: 0
   OverridePersonalHappiness: 0
   FamilyHappiness: 0
   OverrideFamilyHappiness: 0
-  Career: 0
+  Career: 10
   OverrideCareer: 0
   ProjectProgress: 0
   OverrideProjectProgress: 0

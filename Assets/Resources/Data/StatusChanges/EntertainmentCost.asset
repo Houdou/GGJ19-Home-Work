@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14a4fac9c036475f82efde4f69f9aa3f, type: 3}
-  m_Name: TaskCost
+  m_Name: EntertainmentCost
   m_EditorClassIdentifier: 
-  Name: TaskCost
+  Name: EntertainmentCost
   Time:
     Day: 0
-    Hour: 4
+    Hour: 3
   OverrideTime: 0
-  Location: 0
-  Money: 500
+  Location: 1
+  Money: 0
   OverrideMoney: 0
-  Energy: -20
+  Energy: -10
   OverrideEnergy: 0
-  PersonalHappiness: -5
+  PersonalHappiness: 10
   OverridePersonalHappiness: 0
   FamilyHappiness: 0
   OverrideFamilyHappiness: 0
