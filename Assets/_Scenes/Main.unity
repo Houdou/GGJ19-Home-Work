@@ -322,10 +322,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6f577717152564428cb93d601e84407, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Mask: {fileID: 0}
-  Background: {fileID: 0}
+  Mask: {fileID: 2047427610}
+  Background: {fileID: 966311791}
   CurrentLength: 0
-  Slot: {fileID: 0}
+  Slot: {fileID: 7801521544996138975, guid: 87dbc09e1bd50054f9d67ac038315865, type: 3}
   Space: 0
 --- !u!114 &329714700
 MonoBehaviour:
