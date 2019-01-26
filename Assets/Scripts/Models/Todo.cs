@@ -12,6 +12,10 @@ public class Todo : BaseEvent {
 		IsExpirable = isExpirable;
 		IsInternal = isInternal;
 		ExpiryTimestamp = expiryTimestamp;
+
+		if (ExpiryTimestamp <= CreatedAt) {
+			OnExpire?.Invoke();
+		}
 	}
 
 	public event Action OnExpire;

@@ -1,5 +1,4 @@
 public class BaseEvent {
-	
 	/// <summary>
 	/// TotalHour in game
 	/// </summary>
@@ -12,5 +11,6 @@ public class BaseEvent {
 	
 	public virtual void ProgressInTime(GameTime hour) {
 		CurrentTime += hour;
+		CreatedAt = StatusManager.Instance.CurrentTime;
 	}
 }
