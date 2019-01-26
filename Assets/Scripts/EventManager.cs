@@ -169,7 +169,7 @@ public class EventManager : MonoBehaviour {
         var cardController = DrawCard(data, isEmergency);
 
         cardController.OnClick += () => {
-            if (!Operatable) return;
+            if (!Operatable || GameMaster.Instance.IsGameOver) return;
 
             if (data.Cost) {
                 StatusManager.Instance.ApplyStatusChange(data.Cost);
@@ -198,7 +198,7 @@ public class EventManager : MonoBehaviour {
 
         var cardController = DrawTodo(data);
         cardController.OnClick += () => {
-            if (!Operatable) return;
+            if (!Operatable || GameMaster.Instance.IsGameOver) return;
 
             if (data.Cost) {
                 StatusManager.Instance.ApplyStatusChange(data.Cost);
