@@ -1,6 +1,7 @@
 using System;
 
 public class GameStatus {
+	#region Properties	
 	private GameTime _currentTime;
 
 	public GameTime CurrentTime {
@@ -98,16 +99,34 @@ public class GameStatus {
 			_career = value;
 		}
 	}
+	
+	private int _projectProgress;
+
+	public int ProjectProgress {
+		get { return _projectProgress; }
+		set {
+			var diff = value - _projectProgress;
+			if (diff != 0) {
+				OnProjectProgressChange?.Invoke(value, diff);
+			}
+
+			_projectProgress = value;
+		}
+	}
 	public event Action<LocationType, LocationType> OnLocationChange;
-	public event Action<int, int> OnCareerChange;
 	public event Action<GameTime, GameTime> OnGameTimeChange;
 	public event Action<int, int> OnMoneyChange;
 	public event Action<int, int> OnEnergyChange;
 	public event Action<int, int> OnPersonalHappinessChange;
 	public event Action<int, int> OnFamilyHappinessChange;
+	public event Action<int, int> OnCareerChange;
+	public event Action<int, int> OnProjectProgressChange;
+	
 
 	public int TotalHour => CurrentTime.TotalHourInGame;
 	public GameTime RemainingHourToday => new GameTime(0, Config.HoursInDay - CurrentTime.Hour);
+	
+	#endregion
 
 	public GameStatus(
 		GameTime gameTime = default(GameTime),
@@ -115,7 +134,8 @@ public class GameStatus {
 		int energy = 100,
 		int personalHappiness = 80,
 		int familyHappiness = 80,
-		int career = 0
+		int career = 0,
+		int projectProgress = 0
 		) {
 		_currentTime = gameTime;
 		_money = Money = money;
@@ -123,6 +143,7 @@ public class GameStatus {
 		_personalHappiness = PersonalHappiness = personalHappiness;
 		_familyHappiness = FamilyHappiness = familyHappiness;
 		_career = Career = career;
+		_projectProgress = ProjectProgress = projectProgress;
 	}
 
 	public void Merge(StatusChangeData changes) {
@@ -131,6 +152,7 @@ public class GameStatus {
 		PersonalHappiness += changes.PersonalHappiness;
 		FamilyHappiness += changes.FamilyHappiness;
 		Career += changes.Career;
+		ProjectProgress += changes.ProjectProgress;
 		
 		if(changes.Location != LocationType.Null) {
 			Location = changes.Location;
@@ -140,12 +162,22 @@ public class GameStatus {
 	public void Replace(GameStatus status, bool triggerEvents = false) {
 		if (triggerEvents) {
 			CurrentTime = status.CurrentTime;
-			Energy = status.Energy;
+			Location = status.Location;
 			Money = status.Money;
+			Energy = status.Energy;
+			PersonalHappiness = status.PersonalHappiness;
+			FamilyHappiness = status.FamilyHappiness;
+			Career = status.Career;
+			ProjectProgress = status.ProjectProgress;
 		} else {
 			_currentTime = status.CurrentTime;
-			_energy = status.Energy;
+			_location = status.Location;
 			_money = status.Money;
+			_energy = status.Energy;
+			_personalHappiness = status.PersonalHappiness;
+			_familyHappiness = status.FamilyHappiness;
+			_career = status.Career;
+			_projectProgress = status.ProjectProgress;
 		}
 
 	}

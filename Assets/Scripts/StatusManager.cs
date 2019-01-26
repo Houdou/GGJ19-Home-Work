@@ -74,12 +74,14 @@ public class StatusManager : MonoBehaviour {
     public bool Busy;
 
     public event Action<LocationType, LocationType> OnLocationChange;
-    public event Action<int, int> OnCareerChange;
     public event Action<GameTime, GameTime> OnGameTimeChange;
     public event Action<int, int> OnMoneyChange;
     public event Action<int, int> OnEnergyChange;
     public event Action<int, int> OnPersonalHappinessChange;
     public event Action<int, int> OnFamilyHappinessChange;
+    public event Action<int, int> OnCareerChange;
+    public event Action<int, int> OnProjectProgressChange;
+    
     
     private List<BaseEvent> _listEvents;
     private void Awake() {
@@ -105,6 +107,7 @@ public class StatusManager : MonoBehaviour {
         _status.OnEnergyChange += (value, diff) => { OnEnergyChange?.Invoke(value, diff); };
         _status.OnPersonalHappinessChange += (value, diff) => { OnPersonalHappinessChange?.Invoke(value, diff); };
         _status.OnFamilyHappinessChange += (value, diff) => { OnFamilyHappinessChange?.Invoke(value, diff); };
+        _status.OnProjectProgressChange += (value, diff) => { OnProjectProgressChange?.Invoke(value, diff); };
 
     }
 

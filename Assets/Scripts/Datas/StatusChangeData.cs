@@ -11,4 +11,5 @@ public class StatusChangeData : ScriptableObject {
 	public int PersonalHappiness;
 	public int FamilyHappiness;
 	public int Career;
+	public int ProjectProgress;
 }
