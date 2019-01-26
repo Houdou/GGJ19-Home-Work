@@ -99,7 +99,6 @@ public class StatusManager : MonoBehaviour {
         _status.OnGameTimeChange += (value, diff) => { OnGameTimeChange?.Invoke(value, diff); };
         _status.OnLocationChange += (value, prev) => { OnLocationChange?.Invoke(value, prev); };
         _status.OnCareerChange += (value, diff) => { OnCareerChange?.Invoke(value, diff); };
-        _status.OnGameTimeChange += (value, diff) => { OnGameTimeChange?.Invoke(value, diff); };
         _status.OnMoneyChange += (value, diff) => { OnMoneyChange?.Invoke(value, diff); };
         _status.OnEnergyChange += (value, diff) => { OnEnergyChange?.Invoke(value, diff); };
         _status.OnPersonalHappinessChange += (value, diff) => { OnPersonalHappinessChange?.Invoke(value, diff); };
