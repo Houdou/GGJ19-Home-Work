@@ -2,7 +2,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Status Change", menuName = "HomeWork/StatusChanges")]
 public class StatusChangeData : ScriptableObject {
-	public string Name;
+	public string Name = "StatusChange";
 	
 	public GameTime Time;
 	public bool OverrideTime;

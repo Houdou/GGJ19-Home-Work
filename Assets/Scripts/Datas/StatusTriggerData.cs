@@ -5,9 +5,10 @@ public interface IStatusTrigger<T> {
 }
 
 public abstract class StatusTriggerData : ScriptableObject {
-	public string Name;
+	public string Name = "StatusTrigger";
 	public StatusFields Field;
 	public ConditionOperator ConditionOperator;
+	public bool IsInnate;
 	public bool Repeat;
 	public EventData[] TriggerEvents;
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -70,19 +71,44 @@ public class GameMaster : MonoBehaviour {
 
     private EventManager _eventManager;
     private StatusManager _statusManager;
+    
+    public bool IsGameOver;
+
     private void Awake() {
         _eventManager = GetComponent<EventManager>();
         _statusManager = GetComponent<StatusManager>();
     }
 
+    void Start() {
+        LoadData();
+        SetupStatusManager();
+        IsGameOver = false;
+    }
+
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.T)) {
+            _eventManager.CreateCard(DictActionCardData["HouseCleaning"]);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Y)) {
+            _eventManager.CreateCard(DictActionCardData["Project"]);
+        }
+
+        if (Input.GetKeyDown(KeyCode.U)) {
+            _eventManager.ProgressTime(GameTime.oneHour);
+        }
+    }
+
+    #region Init
+
     public Dictionary<string, ActionCardData> DictActionCardData;
     public Dictionary<string, TodoCardData> DictTodoCardData;
-    public Dictionary<string, GenerateActionCardsData> DictGenerateActionCardsData;
-    public Dictionary<string, GenerateTodoCardsData> DictGenerateTodoCardsData;
+    public Dictionary<string, GenerateDelayedCardsData> DictGenerateTodoCardsData;
     public Dictionary<string, IntStatusTriggerData> DictIntStatusTriggerData;
+    public Dictionary<string, LocationStatusTriggerData> DictLocationStatusTriggerData;
     public Dictionary<string, GameTimeStatusTriggerData> DictGameTimeStatusTriggerData;
 
-    void Start() {
+    private void LoadData() {
         var actionCardData = Resources.LoadAll("Data/ActionCards", typeof(ActionCardData))
             .Cast<ActionCardData>().ToArray();
 
@@ -90,7 +116,7 @@ public class GameMaster : MonoBehaviour {
         foreach (var card in actionCardData) {
             DictActionCardData.Add(card.Name, card);
         }
-        
+
         var todoCardData = Resources.LoadAll("Data/TodoCards", typeof(TodoCardData))
             .Cast<TodoCardData>().ToArray();
 
@@ -98,19 +124,11 @@ public class GameMaster : MonoBehaviour {
         foreach (var card in todoCardData) {
             DictTodoCardData.Add(card.Name, card);
         }
-        
-        var generateActionCardsData = Resources.LoadAll("Data/ActionCards", typeof(GenerateActionCardsData))
-            .Cast<GenerateActionCardsData>().ToArray();
 
-        DictGenerateActionCardsData = new Dictionary<string, GenerateActionCardsData>();
-        foreach (var card in generateActionCardsData) {
-            DictGenerateActionCardsData.Add(card.Name, card);
-        }
-        
-        var generateTodoCardData = Resources.LoadAll("Data/TodoCards", typeof(GenerateTodoCardsData))
-            .Cast<GenerateTodoCardsData>().ToArray();
+        var generateTodoCardData = Resources.LoadAll("Data/TodoCards", typeof(GenerateDelayedCardsData))
+            .Cast<GenerateDelayedCardsData>().ToArray();
 
-        DictGenerateTodoCardsData = new Dictionary<string, GenerateTodoCardsData>();
+        DictGenerateTodoCardsData = new Dictionary<string, GenerateDelayedCardsData>();
         foreach (var card in generateTodoCardData) {
             DictGenerateTodoCardsData.Add(card.Name, card);
         }
@@ -122,6 +140,14 @@ public class GameMaster : MonoBehaviour {
         foreach (var trigger in intStatusTriggerData) {
             DictIntStatusTriggerData.Add(trigger.Name, trigger);
         }
+        
+        var locationStatusTriggerData = Resources.LoadAll("Data/StatusTriggers", typeof(LocationStatusTriggerData))
+            .Cast<LocationStatusTriggerData>().ToArray();
+
+        DictLocationStatusTriggerData = new Dictionary<string, LocationStatusTriggerData>();
+        foreach (var trigger in locationStatusTriggerData) {
+            DictLocationStatusTriggerData.Add(trigger.Name, trigger);
+        }
 
         var gameTimeStatusTriggerData = Resources.LoadAll("Data/StatusTriggers", typeof(GameTimeStatusTriggerData))
             .Cast<GameTimeStatusTriggerData>().ToArray();
@@ -130,38 +156,53 @@ public class GameMaster : MonoBehaviour {
         foreach (var trigger in gameTimeStatusTriggerData) {
             DictGameTimeStatusTriggerData.Add(trigger.Name, trigger);
         }
+    }
 
+    private void SetupStatusManager() {
         _statusManager.Init();
-        
-        _statusManager.AddGameTimeStatusTrigger(DictGameTimeStatusTriggerData["GameOverByTimeTrigger"]);
-        _statusManager.AddIntStatusTrigger(DictIntStatusTriggerData["ProjectFinishTrigger"]);
 
         _statusManager.OnGameTimeChange += (value, diff) => {
             var realPauseTime = diff.TotalHourInGame * Config.HoursInRealSecond;
             Debug.Log($"{realPauseTime}");
             Invoke(nameof(ResetBusyStatus), realPauseTime);
         };
+
+        foreach (var trigger in DictIntStatusTriggerData.Values) {
+            if (trigger.IsInnate) {
+                switch (trigger.Field) {
+                    case StatusFields.Money:
+                    case StatusFields.Energy:
+                    case StatusFields.PersonalHappiness:
+                    case StatusFields.FamilyHappiness:
+                    case StatusFields.Career:
+                    case StatusFields.ProjectProgress:
+                        _statusManager.AddIntStatusTrigger(trigger);
+                        break;
+                }
+            }
+        }
+
+        foreach (var trigger in DictGameTimeStatusTriggerData.Values) {
+            if (trigger.IsInnate && trigger.Field == StatusFields.GameTime) {                
+                _statusManager.AddGameTimeStatusTrigger(trigger);
+            }
+        }
+
+        foreach (var trigger in DictLocationStatusTriggerData.Values) {
+            if (trigger.IsInnate && trigger.Field == StatusFields.Location) {
+                _statusManager.AddLocationStatusTrigger(trigger);
+            }
+        }
     }
 
-    void Update() {
-        if (Input.GetKeyDown(KeyCode.T)) {
-            _eventManager.CreateCard(DictActionCardData["HouseCleaning"]);
-        }
-        
-        if (Input.GetKeyDown(KeyCode.Y)) {
-            _eventManager.CreateCard(DictActionCardData["Project"]);
-        }
-
-        if (Input.GetKeyDown(KeyCode.U)) {
-            _statusManager.ProgressTime(GameTime.oneHour);
-        }
-    }
+    #endregion
 
     private void ResetBusyStatus() {
         _statusManager.Busy = false;
     }
 
     public void EndGame(GameEnding ending) {
+        IsGameOver = true;
         Debug.Log($"Game End : {ending.GetDescription()}");
     }
 }

@@ -16,8 +16,8 @@
             <e p="ActionCardData.cs" t="Include" />
             <e p="EventData.cs" t="Include" />
             <e p="GameTimeStatusTriggerData.cs" t="Include" />
-            <e p="GenerateActionCardsData.cs" t="Include" />
-            <e p="GenerateTodoCardsData.cs" t="Include" />
+            <e p="GenerateCardsData.cs" t="Include" />
+            <e p="GenerateDelayedCardsData.cs" t="Include" />
             <e p="IntStatusTriggerData.cs" t="Include" />
             <e p="LocationStatusTriggerData.cs" t="Include" />
             <e p="StatusChangeData.cs" t="Include" />

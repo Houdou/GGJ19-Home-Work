@@ -83,11 +83,7 @@ public class StatusManager : MonoBehaviour {
     public event Action<int, int> OnCareerChange;
     public event Action<int, int> OnProjectProgressChange;
 
-
-    private List<BaseEvent> _listEvents;
-
     private void Awake() {
-        _listEvents = new List<BaseEvent>();
         _energyText = EnergyUI.GetComponentInChildren<TextMeshProUGUI>();
         _moneyText = MoneyUI.GetComponentInChildren<TextMeshProUGUI>();
         _timeText = TimeUI.GetComponentInChildren<TextMeshProUGUI>();
@@ -108,27 +104,12 @@ public class StatusManager : MonoBehaviour {
         _status.OnEnergyChange += (value, diff) => { OnEnergyChange?.Invoke(value, diff); };
         _status.OnPersonalHappinessChange += (value, diff) => { OnPersonalHappinessChange?.Invoke(value, diff); };
         _status.OnFamilyHappinessChange += (value, diff) => { OnFamilyHappinessChange?.Invoke(value, diff); };
-        _status.OnProjectProgressChange += (value, diff) => {
-            OnProjectProgressChange?.Invoke(value, diff);
-            Debug.Log($"value: {value}, diff: {diff}");
-        };
+        _status.OnProjectProgressChange += (value, diff) => { OnProjectProgressChange?.Invoke(value, diff); };
 
     }
 
     public void LoadStatus(GameStatus status) {
         _status.Replace(status);
-    }
-
-    public void ProgressTime(GameTime time, bool capToday = false) {
-        foreach (var ev in _listEvents) {
-            ev.ProgressInTime(time);
-        }
-
-        _status.CurrentTime += time;
-    }
-
-    public void AddCard(BaseEvent ev) {
-        _listEvents.Add(ev);
     }
 
     #region StatusTrigger
@@ -266,9 +247,9 @@ public class StatusManager : MonoBehaviour {
         _status.Merge(changes);
 
         // TODO: Check date limit
-
         if (changes.Time != GameTime.zero) {
-            ProgressTime(changes.Time, true);
+            _status.CurrentTime += changes.Time;
+            EventManager.Instance.ProgressTime(changes.Time);
         }
 
         if (changes.OverrideTime) {
