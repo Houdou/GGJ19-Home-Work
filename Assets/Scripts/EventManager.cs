@@ -76,6 +76,7 @@ public class EventManager : MonoBehaviour {
     private Dictionary<LocationType, string> _dicLocationPanel;
 
     public event Action<CardController> OnCardCreated;
+    public event Action<CardController> OnCardDestroyed;
 
     private void Awake() {
         _dicRefPos = new Dictionary<string, Transform> {
@@ -96,6 +97,23 @@ public class EventManager : MonoBehaviour {
 
     private void Update() {
         
+    }
+
+    [NonSerialized]
+    public bool Operatable = true;
+
+    public void ProcessEvent(EventData ev) {
+        foreach (var statusChange in ev.StatusChanges) {
+            StatusManager.Instance.ApplyStatusChange(statusChange);
+        }
+
+        switch (ev.Ending) {
+            // TODO : End game
+            case GameEnding.GameOver:
+            case GameEnding.HappyEnd:
+                GameMaster.Instance.EndGame(ev.Ending);
+                break;
+        }
     }
     
 
@@ -118,12 +136,19 @@ public class EventManager : MonoBehaviour {
         cardController.CenterPos = _dicRefPos[$"{panel}CardCenterPos"];
         cardController.PinPos = thoughtPos;
         
-        
         cardController.OnClick += () => {
+            if (!Operatable) return;
+            
             if (card.Cost) {
                 StatusManager.Instance.ApplyStatusChange(card.Cost);
             }
-            Debug.Log($"Clicked!!! {cardController.RefPos.position}");
+
+            if (card.Time != GameTime.zero) {
+                StatusManager.Instance.ProgressTime(card.Time);
+            }
+            
+            // TODO: Remove cards
+            OnCardDestroyed?.Invoke(cardController);
         };
 
         OnCardCreated?.Invoke(cardController);

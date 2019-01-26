@@ -1,11 +1,12 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Status Trigger", menuName = "HomeWork/StatusTrigger")]
+public interface IStatusTrigger<T> {
+	bool Compare(T obj);
+}
 
-public class StatusTriggerData : ScriptableObject {
+public abstract class StatusTriggerData : ScriptableObject {
+	public string Name;
 	public StatusFields Field;
 	public ConditionOperator ConditionOperator;
-	public int TargetIntValue;
-	public float TargetFloatValue;
-	public string TargetStringValue;
+	public EventData[] TriggerEvents;
 }

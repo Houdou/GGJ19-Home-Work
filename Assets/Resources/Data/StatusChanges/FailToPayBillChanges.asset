@@ -9,15 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1418965365c8c4045b6679181c7923c0, type: 3}
-  m_Name: Work
+  m_Script: {fileID: 11500000, guid: 14a4fac9c036475f82efde4f69f9aa3f, type: 3}
+  m_Name: FailToPayBillChanges
   m_EditorClassIdentifier: 
-  Name: Work
-  Location: 2
+  Name: 
   Time:
     Day: 0
-    Hour: 8
-  Energy: -10
-  Money: 200
-  Cost: {fileID: 11400000, guid: ef06740d9295648f38e626b8ffe272e9, type: 2}
-  TriggerEvents: []
+    Hour: 0
+  Energy: 0
+  Money: 0
+  Happiness: 0

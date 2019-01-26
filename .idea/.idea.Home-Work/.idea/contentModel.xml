@@ -7,11 +7,15 @@
         <e p="Scripts" t="Include">
           <e p="Controllers" t="Include">
             <e p="CardController.cs" t="Include" />
+            <e p="SpriteController.cs" t="Include" />
             <e p="ViewController.cs" t="Include" />
           </e>
           <e p="Datas" t="Include">
             <e p="ActionCardData.cs" t="Include" />
             <e p="EventData.cs" t="Include" />
+            <e p="FloatStatusTriggerData.cs" t="Include" />
+            <e p="GameTimeStatusTriggerData.cs" t="Include" />
+            <e p="IntStatusTriggerData.cs" t="Include" />
             <e p="StatusChangeData.cs" t="Include" />
             <e p="StatusTriggerData.cs" t="Include" />
             <e p="TodoData.cs" t="Include" />
@@ -20,9 +24,15 @@
           <e p="GameMaster.cs" t="Include" />
           <e p="LocationType.cs" t="Include" />
           <e p="Models" t="Include">
+            <e p="BaseEvent.cs" t="Include" />
             <e p="Card.cs" t="Include" />
+            <e p="EnumExtension.cs" t="Include" />
+            <e p="GameEnding.cs" t="Include" />
+            <e p="GameStatus.cs" t="Include" />
             <e p="GameTime.cs" t="Include" />
             <e p="StatusFields.cs" t="Include" />
+            <e p="StripeLocations.cs" t="Include" />
+            <e p="Todo.cs" t="Include" />
           </e>
           <e p="StatusManager.cs" t="Include" />
         </e>

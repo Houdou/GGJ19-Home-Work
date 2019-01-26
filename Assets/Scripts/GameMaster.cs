@@ -75,32 +75,63 @@ public class GameMaster : MonoBehaviour {
         _statusManager = GetComponent<StatusManager>();
     }
 
-    public Dictionary<string, ActionCardData> DictActionCardDatas;
+    public Dictionary<string, ActionCardData> DictActionCardData;
+    public Dictionary<string, IntStatusTriggerData> DictIntStatusTriggerData;
+    public Dictionary<string, FloatStatusTriggerData> DictFloatStatusTriggerData;
+    public Dictionary<string, GameTimeStatusTriggerData> DictGameTimeStatusTriggerData;
 
     void Start() {
-        var actionCardDatas = Resources.LoadAll("Data/ActionCards", typeof(ActionCardData))
+        var actionCardData = Resources.LoadAll("Data/ActionCards", typeof(ActionCardData))
             .Cast<ActionCardData>().ToArray();
-        
-        DictActionCardDatas = new Dictionary<string, ActionCardData>();
-        foreach (var card in actionCardDatas) {
-            DictActionCardDatas.Add(card.Name, card);
+
+        DictActionCardData = new Dictionary<string, ActionCardData>();
+        foreach (var card in actionCardData) {
+            DictActionCardData.Add(card.Name, card);
         }
 
-        Debug.Log(nameof(LocationType.Office));
-        
+        var intStatusTriggerData = Resources.LoadAll("Data/StatusTriggers", typeof(IntStatusTriggerData))
+            .Cast<IntStatusTriggerData>().ToArray();
+
+        DictIntStatusTriggerData = new Dictionary<string, IntStatusTriggerData>();
+        foreach (var trigger in intStatusTriggerData) {
+            DictIntStatusTriggerData.Add(trigger.Name, trigger);
+        }
+
+        var floatStatusTriggerData = Resources.LoadAll("Data/StatusTriggers", typeof(FloatStatusTriggerData))
+            .Cast<FloatStatusTriggerData>().ToArray();
+
+        DictFloatStatusTriggerData = new Dictionary<string, FloatStatusTriggerData>();
+        foreach (var trigger in floatStatusTriggerData) {
+            DictFloatStatusTriggerData.Add(trigger.Name, trigger);
+        }
+
+        var gameTimeStatusTriggerData = Resources.LoadAll("Data/StatusTriggers", typeof(GameTimeStatusTriggerData))
+            .Cast<GameTimeStatusTriggerData>().ToArray();
+
+        DictGameTimeStatusTriggerData = new Dictionary<string, GameTimeStatusTriggerData>();
+        foreach (var trigger in gameTimeStatusTriggerData) {
+            DictGameTimeStatusTriggerData.Add(trigger.Name, trigger);
+        }
+
         _statusManager.Init();
+        
+        _statusManager.AddGameTimeStatusTrigger(DictGameTimeStatusTriggerData["GameOverByTimeTrigger"]);
     }
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.T)) {
-            _eventManager.CreateCard(DictActionCardDatas["HouseCleaning"]);
+            _eventManager.CreateCard(DictActionCardData["HouseCleaning"]);
         }
         if (Input.GetKeyDown(KeyCode.Y)) {
-            _eventManager.CreateCard(DictActionCardDatas["Work"]);
+            _eventManager.CreateCard(DictActionCardData["Work"]);
         }
 
         if (Input.GetKeyDown(KeyCode.U)) {
-            _statusManager.ProgressHours(GameTime.oneHour);
+            _statusManager.ProgressTime(GameTime.oneHour);
         }
+    }
+
+    public void EndGame(GameEnding ending) {
+        Debug.Log($"Game End : {ending.GetDescription()}");
     }
 }

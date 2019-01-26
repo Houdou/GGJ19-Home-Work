@@ -18,81 +18,6 @@ public static class Config {
     public static readonly float HoursInRealSecond = 3.0f;
 }
 
-public class GameStatus {
-
-    private GameTime _currentTime;
-
-    public GameTime CurrentTime {
-        get { return _currentTime; }
-        set {
-            var diff = value - _currentTime;
-            if (diff != GameTime.zero) {
-                OnGameTimeChange?.Invoke(value, diff);
-            }
-
-            _currentTime = value;
-        }
-    }
-
-    private int _energy;
-
-    public int Energy {
-        get { return _energy; }
-        set {
-            var diff = value - _energy;
-            if (diff != 0) {
-                OnEnergyChange?.Invoke(value, diff);
-            }
-
-            _energy = value;
-        }
-    }
-
-    private int _money;
-
-    public int Money {
-        get { return _money; }
-        set {
-            var diff = value - _money;
-            if (diff != 0) {
-                OnMoneyChange?.Invoke(value, diff);
-            }
-
-            _money = value;
-        }
-    }
-
-    public event Action<int, int> OnEnergyChange;
-    public event Action<int, int> OnMoneyChange;
-    public event Action<GameTime, GameTime> OnGameTimeChange;
-
-    public int TotalHour => CurrentTime.TotalHourInGame;
-
-    public GameStatus(GameTime gameTime = default(GameTime), int money = 100, int energy = 100) {
-        _currentTime = gameTime;
-        _money = Money = money;
-        _energy = Energy = energy;
-    }
-
-    public void Merge(StatusChangeData statusChange) {
-        Money += statusChange.Money;
-        Energy += statusChange.Energy;
-    }
-
-    public void Replace(GameStatus status, bool triggerEvents = false) {
-        if (triggerEvents) {
-            CurrentTime = status.CurrentTime;
-            Energy = status.Energy;
-            Money = status.Money;
-        } else {
-            _currentTime = status.CurrentTime;
-            _energy = status.Energy;
-            _money = status.Money;
-        }
-
-    }
-}
-
 public class StatusManager : MonoBehaviour {
     #region Singleton
 
@@ -159,12 +84,17 @@ public class StatusManager : MonoBehaviour {
     #endregion
 
     private GameStatus _status;
+
+    public event Action<int, int> OnEnergyChange;
+    public event Action<int, int> OnMoneyChange;
+    public event Action<GameTime, GameTime> OnGameTimeChange;
     
     private List<BaseEvent> _listEvents;
     private void Awake() {
          _listEvents = new List<BaseEvent>();
          _energyText = EnergyUI.GetComponentInChildren<TextMeshProUGUI>();
          _moneyText = MoneyUI.GetComponentInChildren<TextMeshProUGUI>();
+         _timeText = TimeUI.GetComponentInChildren<TextMeshProUGUI>();
     }
 
     private void Update() {
@@ -173,32 +103,98 @@ public class StatusManager : MonoBehaviour {
 
     public void Init() {
         _status = new GameStatus();
+        
+        // Proxy the status event
         _status.OnMoneyChange += (value, diff) => {
-            Debug.Log(value);
-            if (value >= 2000) {
-                Debug.Log("Call draw rich house");
-            }
+            OnMoneyChange?.Invoke(value, diff);
         };
+        _status.OnEnergyChange += (value, diff) => {
+            OnEnergyChange?.Invoke(value, diff);
+        };
+        _status.OnGameTimeChange += (value, diff) => {
+            OnGameTimeChange?.Invoke(value, diff);
+        };
+        
     }
 
     public void LoadStatus(GameStatus status) {
         _status.Replace(status);
     }
     
-    public void ProgressHours(GameTime hour) {
-        
+    public void ProgressTime(GameTime time, bool capToday = false) {
         foreach (var ev in _listEvents) {
-            ev.ProgressInTime(hour);
+            ev.ProgressInTime(time);
         }
+
+        _status.CurrentTime += time;
     }
 
     public void AddCard(BaseEvent ev) {
         _listEvents.Add(ev);
     }
 
-    public void AddStatusTrigger(StatusTriggerData trigger) {
-        throw new NotImplementedException();
+    #region StatusTrigger
+    public void AddStatusTrigger(IntStatusTriggerData trigger) {
+        switch (trigger.Field) {
+            case StatusFields.Money: {
+                var handler = new Action<int, int>((value, diff) => {
+                    if (!trigger.Test(value)) return;
+                    
+                    foreach (var ev in trigger.TriggerEvents) {
+                        EventManager.Instance.ProcessEvent(ev);
+                    }
+                });
+                _status.OnMoneyChange += (value, diff) => {
+                    handler(value, diff);
+                    _status.OnMoneyChange -= handler;
+                };
+            }
+                break;
+            case StatusFields.Energy: {
+                var handler = new Action<int, int>((value, diff) => {
+                    if (!trigger.Test(value)) return;
+                    
+                    foreach (var ev in trigger.TriggerEvents) {
+                        EventManager.Instance.ProcessEvent(ev);
+                    }
+                });
+                _status.OnMoneyChange += (value, diff) => {
+                    handler(value, diff);
+                    _status.OnMoneyChange -= handler;
+                };
+            }
+                break;
+            default:
+                Debug.LogWarning($"Wrong data type Int to Field {nameof(trigger.Field)}");
+                break;
+        }
     }
+
+    public void AddFloatStatusTrigger(FloatStatusTriggerData trigger) {
+        
+    }
+    
+    public void AddGameTimeStatusTrigger(GameTimeStatusTriggerData trigger) {
+        switch (trigger.Field) {
+            case StatusFields.GameTime:
+                var handler = new Action<GameTime, GameTime>((value, diff) => {
+                    if (!trigger.Test(value)) return;
+                    
+                    foreach (var ev in trigger.TriggerEvents) {
+                        EventManager.Instance.ProcessEvent(ev);
+                    }
+                });
+                _status.OnGameTimeChange += (value, diff) => {
+                    handler(value, diff);
+                    _status.OnGameTimeChange -= handler;
+                };
+                break;
+            default:
+                Debug.LogWarning($"Wrong data type GameTime to Field {nameof(trigger.Field)}");
+                break;
+        }
+    }
+    #endregion
 
     #region Render
     public GameObject StatusContainer;
@@ -206,15 +202,22 @@ public class StatusManager : MonoBehaviour {
     private TextMeshProUGUI _energyText;
     public GameObject MoneyUI;
     private TextMeshProUGUI _moneyText;
+    public GameObject TimeUI;
+    private TextMeshProUGUI _timeText;
 
     public void UpdateUI() {
         _energyText.text = $"Energy {_status.Energy}";
         _moneyText.text = $"Money {_status.Money}";
+        _timeText.text = _status.CurrentTime.ToString();
     }
     #endregion
 
     public void ApplyStatusChange(StatusChangeData statusChange) {
         _status.Merge(statusChange);
+        if (statusChange.Time != GameTime.zero) {
+            ProgressTime(statusChange.Time, true);
+        }
+        
         UpdateUI();
     }
 }

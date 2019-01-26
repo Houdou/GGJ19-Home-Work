@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
+[Serializable]
 public struct GameTime {
 	public bool Equals(GameTime other) {
 		return Day == other.Day && Hour == other.Hour;
@@ -16,8 +19,8 @@ public struct GameTime {
 		}
 	}
 
-	public readonly int Day;
-	public readonly int Hour;
+	public int Day;
+	public int Hour;
 
 	public static GameTime zero => new GameTime(0, 0);
 	public static GameTime oneHour => new GameTime(0, 1);
@@ -75,5 +78,13 @@ public struct GameTime {
 
 	public static bool operator >=(GameTime lhs, GameTime rhs) {
 		return lhs.TotalHourInGame >= rhs.TotalHourInGame;
+	}
+
+	public override string ToString() {
+		var day = $"Day {Day + 1}";
+		var hourRaw = $"00{Hour}";
+		var hour = $"{hourRaw.Substring(hourRaw.Length - 2, 2)}:00";
+		
+		return $"{day} - {hour}";
 	}
 }

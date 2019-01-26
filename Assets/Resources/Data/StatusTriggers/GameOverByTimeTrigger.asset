@@ -9,8 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be38b239632b47d1a9467dc04a17c376, type: 3}
-  m_Name: New Status Trigger
+  m_Script: {fileID: 11500000, guid: 9c843bef809342ccb576cba8d462b3d9, type: 3}
+  m_Name: GameOverByTimeTrigger
   m_EditorClassIdentifier: 
+  Name: GameOverByTimeTrigger
   Field: 0
-  ConditionOperator: 0
+  ConditionOperator: 3
+  TriggerEvents:
+  - {fileID: 11400000, guid: 5dd62c9a4b44a4aeebfea07903d7e76a, type: 2}
+  TargetGameTime:
+    Day: 9
+    Hour: 0
