@@ -19,13 +19,13 @@ public class ScheduleBar : MonoBehaviour
 
     void Start()
     {
-        parent = GameObject.Find("Generator").GetComponent<Transform>();
-        holder = GameObject.Find("Generator").GetComponent<RectTransform>();
+        parent = GameObject.Find("Mask").GetComponent<Transform>();
+        holder = GameObject.Find("Mask").GetComponent<RectTransform>();
         mask = GameObject.Find("Mask").GetComponent<RectTransform>();
         background = GameObject.Find("Background").GetComponent<RectTransform>();
 
-        mask.sizeDelta = background.sizeDelta;
-        maskPosition = background.sizeDelta.x - mask.sizeDelta.x;
+        mask.sizeDelta = new Vector2(0,mask.sizeDelta.y);
+        maskPosition = mask.sizeDelta.x;//background.sizeDelta.x - mask.sizeDelta.x;
         nextSlot = new Vector2(0, 0);
         progressing = false;
     }
@@ -37,9 +37,11 @@ public class ScheduleBar : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             GenerateNextSlot(currentLength);
+            progressing = true;
         }
-        Debug.Log(maskPosition.ToString() + " - " + (background.sizeDelta.x - mask.sizeDelta.x).ToString());
-        if(background.sizeDelta.x - mask.sizeDelta.x<=maskPosition)
+        //Debug.Log(maskPosition.ToString() + " - " + (background.sizeDelta.x - mask.sizeDelta.x).ToString());
+        //if(background.sizeDelta.x - mask.sizeDelta.x<=maskPosition)
+        if(progressing)
         {
             BarProgress();
         }
@@ -49,12 +51,11 @@ public class ScheduleBar : MonoBehaviour
     void NextSlotPosition(int length)
     {
         nextSlot = new Vector2(nextSlot.x + length, 0);
-
     }
 
     void GenerateNextSlot(int length)
     {
-        slot.GetComponent<RectTransform>().sizeDelta = new Vector2(length,20);
+        slot.GetComponent<RectTransform>().sizeDelta = new Vector2(length,background.sizeDelta.y);
         initializedSlot = Instantiate(slot, parent, false);
         initializedSlot.GetComponent<RectTransform>().localPosition = nextSlot;
         NextSlotPosition(length);
@@ -63,10 +64,8 @@ public class ScheduleBar : MonoBehaviour
 
     void BarProgress()
     {
-        while(background.sizeDelta.x - mask.sizeDelta.x < maskPosition)
-        {
-            mask.sizeDelta = new Vector2(mask.sizeDelta.x - space * Time.deltaTime, 20);
-        }
-        progressing = false;
+        mask.sizeDelta = new Vector2(mask.sizeDelta.x + space * Time.deltaTime, mask.sizeDelta.y);
+        if(mask.sizeDelta.x >= maskPosition)
+            progressing = false;
     }
 }
