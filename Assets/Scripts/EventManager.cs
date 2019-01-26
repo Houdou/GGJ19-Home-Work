@@ -6,14 +6,14 @@ using UnityEngine;
 public class EventManager : MonoBehaviour {
     #region Singleton
 
-    private static GameMaster instance;
+    private static EventManager instance;
 
     private static object _lock = new object();
 
-    public static GameMaster Instance {
+    public static EventManager Instance {
         get {
             if (applicationIsQuitting) {
-                Debug.LogWarning("[Singleton] Instance '" + typeof(GameMaster) +
+                Debug.LogWarning("[Singleton] Instance '" + typeof(EventManager) +
                                  "' already destroyed on application quit." +
                                  " Won't create again - returning null.");
                 return null;
@@ -21,9 +21,9 @@ public class EventManager : MonoBehaviour {
 
             lock (_lock) {
                 if (instance == null) {
-                    instance = (GameMaster) FindObjectOfType(typeof(GameMaster));
+                    instance = (EventManager) FindObjectOfType(typeof(EventManager));
 
-                    if (FindObjectsOfType(typeof(GameMaster)).Length > 1) {
+                    if (FindObjectsOfType(typeof(EventManager)).Length > 1) {
                         Debug.LogError("[Singleton] Something went really wrong " +
                                        " - there should never be more than 1 singleton!" +
                                        " Reopening the scene might fix it.");
@@ -32,12 +32,12 @@ public class EventManager : MonoBehaviour {
 
                     if (instance == null) {
                         GameObject singleton = new GameObject();
-                        instance = singleton.AddComponent<GameMaster>();
-                        singleton.name = "(singleton) " + typeof(GameMaster);
+                        instance = singleton.AddComponent<EventManager>();
+                        singleton.name = "(singleton) " + typeof(EventManager);
 
                         DontDestroyOnLoad(singleton);
 
-                        Debug.Log("[Singleton] An instance of " + typeof(GameMaster) +
+                        Debug.Log("[Singleton] An instance of " + typeof(EventManager) +
                                   " is needed in the scene, so '" + singleton +
                                   "' was created with DontDestroyOnLoad.");
                     }
@@ -75,14 +75,16 @@ public class EventManager : MonoBehaviour {
     private Dictionary<string, Transform> _dicRefPos;
     private Dictionary<LocationType, string> _dicLocationPanel;
 
+    public event Action<CardController> OnCardCreated;
+
     private void Awake() {
         _dicRefPos = new Dictionary<string, Transform> {
-            {"leftThoughtsRefPos", LeftPanel.transform.Find("ThoughtsRefPos")},
-            {"leftThoughtsCenterPos", LeftPanel.transform.Find("ThoughtsCenterPos")},
-            {"leftThoughtsContainer", LeftPanel.transform.Find("ThoughtsContainer")},
-            {"rightThoughtsRefPos", RightPanel.transform.Find("ThoughtsRefPos")},
-            {"rightThoughtsCenterPos", RightPanel.transform.Find("ThoughtsCenterPos")},
-            {"rightThoughtsContainer", RightPanel.transform.Find("ThoughtsContainer")},
+            {"leftCardRefPos", LeftPanel.transform.Find("CardRefPos")},
+            {"leftCardCenterPos", LeftPanel.transform.Find("CardCenterPos")},
+            {"leftCardContainer", LeftPanel.transform.Find("CardContainer")},
+            {"rightCardRefPos", RightPanel.transform.Find("CardRefPos")},
+            {"rightCardCenterPos", RightPanel.transform.Find("CardCenterPos")},
+            {"rightCardContainer", RightPanel.transform.Find("CardContainer")},
         };
         
         _dicLocationPanel = new Dictionary<LocationType, string> {
@@ -95,22 +97,36 @@ public class EventManager : MonoBehaviour {
     private void Update() {
         
     }
+    
 
-    public void CreateAction(LocationType location) {
-        if (location == LocationType.Null) {
-            Debug.LogWarning($"Wrong {nameof(LocationType)} passed to {nameof(CreateAction)}");
+    #region Render
+    public void CreateCard(ActionCardData card) {
+        if (card.Location == LocationType.Null) {
+            Debug.LogWarning($"Wrong {nameof(LocationType)} passed to {nameof(CreateCard)}");
             return;
         }
 
-        var panel = _dicLocationPanel[location];
-        var thoughtPos = _dicRefPos[$"{panel}ThoughtsCenterPos"].position;
-        var parentTransform = _dicRefPos[$"{panel}ThoughtsContainer"]; 
+        var panel = _dicLocationPanel[card.Location];
+        // TODO: Use group manager to update pos
+        var thoughtPos = _dicRefPos[$"{panel}CardCenterPos"].position;
+        var parentTransform = _dicRefPos[$"{panel}CardContainer"]; 
 
         var newCard = Instantiate(ThoughtPrefab, thoughtPos, Quaternion.identity, parentTransform);
         var cardController = newCard.GetComponent<CardController>();
 
-        cardController.RefPos = _dicRefPos[$"{panel}ThoughtsRefPos"];
-        cardController.CenterPos = _dicRefPos[$"{panel}ThoughtsCenterPos"];
-        cardController.OnClick += () => { Debug.Log($"Clicked!!! {cardController.RefPos.position}"); };
+        cardController.RefPos = _dicRefPos[$"{panel}CardRefPos"];
+        cardController.CenterPos = _dicRefPos[$"{panel}CardCenterPos"];
+        cardController.PinPos = thoughtPos;
+        
+        
+        cardController.OnClick += () => {
+            if (card.Cost) {
+                StatusManager.Instance.ApplyStatusChange(card.Cost);
+            }
+            Debug.Log($"Clicked!!! {cardController.RefPos.position}");
+        };
+
+        OnCardCreated?.Invoke(cardController);
     }
+    #endregion
 }

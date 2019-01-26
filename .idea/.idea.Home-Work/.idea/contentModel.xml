@@ -9,9 +9,22 @@
             <e p="CardController.cs" t="Include" />
             <e p="ViewController.cs" t="Include" />
           </e>
+          <e p="Datas" t="Include">
+            <e p="ActionCardData.cs" t="Include" />
+            <e p="EventData.cs" t="Include" />
+            <e p="StatusChangeData.cs" t="Include" />
+            <e p="StatusTriggerData.cs" t="Include" />
+            <e p="TodoData.cs" t="Include" />
+          </e>
           <e p="EventManager.cs" t="Include" />
           <e p="GameMaster.cs" t="Include" />
           <e p="LocationType.cs" t="Include" />
+          <e p="Models" t="Include">
+            <e p="Card.cs" t="Include" />
+            <e p="GameTime.cs" t="Include" />
+            <e p="StatusFields.cs" t="Include" />
+          </e>
+          <e p="StatusManager.cs" t="Include" />
         </e>
         <e p="TextMesh Pro" t="Include">
           <e p="Resources" t="Include">

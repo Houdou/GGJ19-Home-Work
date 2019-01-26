@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameMaster : MonoBehaviour {
@@ -68,16 +69,38 @@ public class GameMaster : MonoBehaviour {
     #endregion
 
     private EventManager _eventManager;
+    private StatusManager _statusManager;
     private void Awake() {
         _eventManager = GetComponent<EventManager>();
+        _statusManager = GetComponent<StatusManager>();
+    }
+
+    public Dictionary<string, ActionCardData> DictActionCardDatas;
+
+    void Start() {
+        var actionCardDatas = Resources.LoadAll("Data/ActionCards", typeof(ActionCardData))
+            .Cast<ActionCardData>().ToArray();
+        
+        DictActionCardDatas = new Dictionary<string, ActionCardData>();
+        foreach (var card in actionCardDatas) {
+            DictActionCardDatas.Add(card.Name, card);
+        }
+
+        Debug.Log(nameof(LocationType.Office));
+        
+        _statusManager.Init();
     }
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.T)) {
-            _eventManager.CreateAction(LocationType.Home);
+            _eventManager.CreateCard(DictActionCardDatas["HouseCleaning"]);
         }
         if (Input.GetKeyDown(KeyCode.Y)) {
-            _eventManager.CreateAction(LocationType.Office);
+            _eventManager.CreateCard(DictActionCardDatas["Work"]);
+        }
+
+        if (Input.GetKeyDown(KeyCode.U)) {
+            _statusManager.ProgressHours(GameTime.oneHour);
         }
     }
 }

@@ -8,13 +8,8 @@ public class CardController : MonoBehaviour {
 
 	public Transform CenterPos;
 	public Transform RefPos;
-
-	private void Start() {
-		
-	}
-
-	private void Update() {
-	}
+	public Vector3 PinPos;
+	
 	
 	public void HandleClick() {
 		OnClick?.Invoke();
