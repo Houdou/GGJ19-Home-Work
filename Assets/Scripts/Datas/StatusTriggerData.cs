@@ -8,5 +8,6 @@ public abstract class StatusTriggerData : ScriptableObject {
 	public string Name;
 	public StatusFields Field;
 	public ConditionOperator ConditionOperator;
+	public bool Repeat;
 	public EventData[] TriggerEvents;
 }

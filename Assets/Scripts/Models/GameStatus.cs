@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public class GameStatus {
 	#region Properties	
@@ -8,11 +9,11 @@ public class GameStatus {
 		get { return _currentTime; }
 		set {
 			var diff = value - _currentTime;
+			_currentTime = value;
 			if (diff != GameTime.zero) {
 				OnGameTimeChange?.Invoke(value, diff);
 			}
 
-			_currentTime = value;
 		}
 	}
 
@@ -36,11 +37,11 @@ public class GameStatus {
 		get { return _money; }
 		set {
 			var diff = value - _money;
+			_money = value;
 			if (diff != 0) {
 				OnMoneyChange?.Invoke(value, diff);
 			}
 
-			_money = value;
 		}
 	}
 
@@ -50,11 +51,11 @@ public class GameStatus {
 		get { return _energy; }
 		set {
 			var diff = value - _energy;
+			_energy = value;
 			if (diff != 0) {
 				OnEnergyChange?.Invoke(value, diff);
 			}
 
-			_energy = value;
 		}
 	}
 	
@@ -64,11 +65,11 @@ public class GameStatus {
 		get { return _personalHappiness; }
 		set {
 			var diff = value - _personalHappiness;
+			_personalHappiness = value;
 			if (diff != 0) {
 				OnPersonalHappinessChange?.Invoke(value, diff);
 			}
 
-			_personalHappiness = value;
 		}
 	}
 	
@@ -78,11 +79,11 @@ public class GameStatus {
 		get { return _familyHappiness; }
 		set {
 			var diff = value - _familyHappiness;
+			_familyHappiness = value;
 			if (diff != 0) {
 				OnFamilyHappinessChange?.Invoke(value, diff);
 			}
 
-			_familyHappiness = value;
 		}
 	}
 	
@@ -92,11 +93,11 @@ public class GameStatus {
 		get { return _career; }
 		set {
 			var diff = value - _career;
+			_career = value;
 			if (diff != 0) {
 				OnCareerChange?.Invoke(value, diff);
 			}
 
-			_career = value;
 		}
 	}
 	
@@ -106,11 +107,10 @@ public class GameStatus {
 		get { return _projectProgress; }
 		set {
 			var diff = value - _projectProgress;
+			_projectProgress = value;
 			if (diff != 0) {
 				OnProjectProgressChange?.Invoke(value, diff);
 			}
-
-			_projectProgress = value;
 		}
 	}
 	public event Action<LocationType, LocationType> OnLocationChange;
@@ -147,14 +147,49 @@ public class GameStatus {
 	}
 
 	public void Merge(StatusChangeData changes) {
-		Money += changes.Money;
-		Energy += changes.Energy;
-		PersonalHappiness += changes.PersonalHappiness;
-		FamilyHappiness += changes.FamilyHappiness;
-		Career += changes.Career;
-		ProjectProgress += changes.ProjectProgress;
-		
-		if(changes.Location != LocationType.Null) {
+		if (changes.OverrideMoney) {
+			Money = changes.Money;
+		}
+		else {
+			Money += changes.Money;
+		}
+
+		if (changes.OverrideEnergy) {
+			Energy = changes.Energy;
+		}
+		else {
+			Energy += changes.Energy;
+		}
+
+		if (changes.OverridePersonalHappiness) {
+			PersonalHappiness = changes.PersonalHappiness;
+		}
+		else {
+			PersonalHappiness += changes.PersonalHappiness;
+		}
+
+		if (changes.OverrideFamilyHappiness) {
+			FamilyHappiness = changes.FamilyHappiness;
+		}
+		else {
+			FamilyHappiness += changes.FamilyHappiness;
+		}
+
+		if (changes.OverrideCareer) {
+			Career = changes.Career;
+		}
+		else {
+			Career += changes.Career;
+		}
+
+		if (changes.OverrideProjectProgress) {
+			ProjectProgress = changes.ProjectProgress;
+		}
+		else {
+			ProjectProgress += changes.ProjectProgress;
+		}
+
+		if (changes.Location != LocationType.Null) {
 			Location = changes.Location;
 		}
 	}

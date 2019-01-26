@@ -9,15 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1418965365c8c4045b6679181c7923c0, type: 3}
-  m_Name: Work
+  m_Script: {fileID: 11500000, guid: 415bb1b5c549b43ccaad2f6517575a83, type: 3}
+  m_Name: ProjectFinishedEvent
   m_EditorClassIdentifier: 
-  Name: Work
-  Location: 2
-  Time:
-    Day: 0
-    Hour: 8
-  Energy: -10
-  Money: 200
-  Cost: {fileID: 11400000, guid: ef06740d9295648f38e626b8ffe272e9, type: 2}
-  TriggerEvents: []
+  Name: ProjectFinished
+  GenerateActions: []
+  StatusChanges:
+  - {fileID: 11400000, guid: ac20613a8329b4bcca70c9dffa47dc88, type: 2}
+  Ending: 0

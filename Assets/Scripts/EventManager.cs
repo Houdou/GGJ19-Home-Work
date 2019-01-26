@@ -89,7 +89,7 @@ public class EventManager : MonoBehaviour {
             {"rightCardCenterPos", RightPanel.transform.Find("CardCenterPos")},
             {"rightCardContainer", RightPanel.transform.Find("CardContainer")},
         };
-        
+
         _dicLocationPanel = new Dictionary<LocationType, string> {
             {LocationType.Home, "left"},
             {LocationType.Office, "right"},
@@ -97,14 +97,13 @@ public class EventManager : MonoBehaviour {
         };
     }
 
-    private void Update() {
-        
-    }
+    private void Update() { }
 
     [NonSerialized]
     public bool Operatable = true;
 
     public void ProcessEvent(EventData ev) {
+        Debug.Log($"Processing {ev}");
         foreach (var statusChange in ev.StatusChanges) {
             StatusManager.Instance.ApplyStatusChange(statusChange);
         }
@@ -122,21 +121,25 @@ public class EventManager : MonoBehaviour {
         switch (type) {
             case CardType.Action: {
                 if (!GameMaster.Instance.DictActionCardData.ContainsKey(cardName)) {
-                Debug.LogWarning($"{name} {type.GetDescription()}Card does not exist");
+                    Debug.LogWarning($"{name} {type.GetDescription()}Card does not exist");
                     return;
                 }
+
                 var trigger = ScriptableObject.CreateInstance<GenerateActionCardsData>();
                 trigger.Name = $"Generate{cardName}Trigger";
+                trigger.Time = StatusManager.Instance.CurrentTime + time;
                 trigger.ActionCardsToGenerate = new[] {cardName};
             }
                 break;
             case CardType.Todo: {
                 if (!GameMaster.Instance.DictTodoCardData.ContainsKey(cardName)) {
-                Debug.LogWarning($"{name} {type.GetDescription()}Card does not exist");
+                    Debug.LogWarning($"{name} {type.GetDescription()}Card does not exist");
                     return;
                 }
+
                 var trigger = ScriptableObject.CreateInstance<GenerateTodoCardsData>();
                 trigger.Name = $"Generate{cardName}Trigger";
+                trigger.Time = StatusManager.Instance.CurrentTime + time;
                 trigger.TodoCardsToGenerate = new[] {cardName};
             }
                 break;
@@ -144,29 +147,29 @@ public class EventManager : MonoBehaviour {
                 throw new ArgumentOutOfRangeException(nameof(type), type, null);
         }
     }
-    
+
 
     #region Render
+
     public void CreateCard(ActionCardData card) {
         if (card.Location == LocationType.Null) {
             Debug.LogWarning($"Wrong {nameof(LocationType)} passed to {nameof(CreateCard)}");
             return;
         }
 
+        var cardIndex = ActionCards.Count;
         ActionCards.Add(card);
 
         var panel = _dicLocationPanel[card.Location];
         // TODO: Use group manager to update pos
         var thoughtPos = _dicRefPos[$"{panel}CardCenterPos"].position;
-        var parentTransform = _dicRefPos[$"{panel}CardContainer"]; 
+        var parentTransform = _dicRefPos[$"{panel}CardContainer"];
 
-        if(ActionCards.Count % 2 == 0)
-        {
-            thoughtPos += new Vector3(5 + UnityEngine.Random.Range(0, 15), 125 * ActionCards.Count, 0);
+        if (cardIndex % 2 == 0) {
+            thoughtPos += new Vector3(5 + 20 * UnityEngine.Random.Range(0, 15), Config.VerticalStep * cardIndex, 0);
         }
-        else
-        {
-            thoughtPos += new Vector3(-5 - UnityEngine.Random.Range(0, 15), 125 * ActionCards.Count, 0);
+        else {
+            thoughtPos += new Vector3(-5 - 20 *UnityEngine.Random.Range(0, 15), Config.VerticalStep * cardIndex, 0);
         }
 
         var newCard = Instantiate(ThoughtPrefab, thoughtPos, Quaternion.identity, parentTransform);
@@ -175,12 +178,20 @@ public class EventManager : MonoBehaviour {
         cardController.RefPos = _dicRefPos[$"{panel}CardRefPos"];
         cardController.CenterPos = _dicRefPos[$"{panel}CardCenterPos"];
         cardController.PinPos = thoughtPos;
-        
+
         cardController.OnClick += () => {
             if (!Operatable) return;
-            
+
+            Debug.Log($"Action {card.Name} Trigger");
+
             if (card.Cost) {
                 StatusManager.Instance.ApplyStatusChange(card.Cost);
+            }
+
+            if (card.TriggerEvents != null && card.TriggerEvents.Length > 0) {
+                foreach (var ev in card.TriggerEvents) {
+                    ProcessEvent(ev);
+                }
             }
 
             // TODO: Remove cards
@@ -189,5 +200,6 @@ public class EventManager : MonoBehaviour {
 
         OnCardCreated?.Invoke(cardController);
     }
+
     #endregion
 }

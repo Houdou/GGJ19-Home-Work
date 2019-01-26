@@ -14,5 +14,6 @@ public enum StatusFields {
 	Energy,
 	PersonalHappiness,
 	FamilyHappiness,
-	Career
+	Career,
+	ProjectProgress
 }

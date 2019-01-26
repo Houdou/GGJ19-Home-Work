@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Todo", menuName = "HomeWork/Todo")]
+[CreateAssetMenu(fileName = "New Todo", menuName = "HomeWork/TodoCard")]
 public class TodoCardData : ScriptableObject {
     public string Name;
     public LocationType Location;

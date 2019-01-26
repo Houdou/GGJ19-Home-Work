@@ -1932,6 +1932,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1993010813}
   - component: {fileID: 1993010814}
+  - component: {fileID: 1993010815}
   m_Layer: 5
   m_Name: RightPanel
   m_TagString: Untagged
@@ -1969,6 +1970,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1993010812}
   m_CullTransparentMesh: 0
+--- !u!114 &1993010815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993010812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac24cdc05d4a34b0abf08f049b4090bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BackGround: {fileID: 0}
+  People: {fileID: 0}
+  ForeGround: {fileID: 0}
 --- !u!1 &2037135666
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,6 +19,7 @@
             <e p="GenerateActionCardsData.cs" t="Include" />
             <e p="GenerateTodoCardsData.cs" t="Include" />
             <e p="IntStatusTriggerData.cs" t="Include" />
+            <e p="LocationStatusTriggerData.cs" t="Include" />
             <e p="StatusChangeData.cs" t="Include" />
             <e p="StatusTriggerData.cs" t="Include" />
             <e p="TodoCardData.cs" t="Include" />

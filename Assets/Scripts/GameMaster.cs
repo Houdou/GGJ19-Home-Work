@@ -77,6 +77,8 @@ public class GameMaster : MonoBehaviour {
 
     public Dictionary<string, ActionCardData> DictActionCardData;
     public Dictionary<string, TodoCardData> DictTodoCardData;
+    public Dictionary<string, GenerateActionCardsData> DictGenerateActionCardsData;
+    public Dictionary<string, GenerateTodoCardsData> DictGenerateTodoCardsData;
     public Dictionary<string, IntStatusTriggerData> DictIntStatusTriggerData;
     public Dictionary<string, GameTimeStatusTriggerData> DictGameTimeStatusTriggerData;
 
@@ -95,6 +97,22 @@ public class GameMaster : MonoBehaviour {
         DictTodoCardData = new Dictionary<string, TodoCardData>();
         foreach (var card in todoCardData) {
             DictTodoCardData.Add(card.Name, card);
+        }
+        
+        var generateActionCardsData = Resources.LoadAll("Data/ActionCards", typeof(GenerateActionCardsData))
+            .Cast<GenerateActionCardsData>().ToArray();
+
+        DictGenerateActionCardsData = new Dictionary<string, GenerateActionCardsData>();
+        foreach (var card in generateActionCardsData) {
+            DictGenerateActionCardsData.Add(card.Name, card);
+        }
+        
+        var generateTodoCardData = Resources.LoadAll("Data/TodoCards", typeof(GenerateTodoCardsData))
+            .Cast<GenerateTodoCardsData>().ToArray();
+
+        DictGenerateTodoCardsData = new Dictionary<string, GenerateTodoCardsData>();
+        foreach (var card in generateTodoCardData) {
+            DictGenerateTodoCardsData.Add(card.Name, card);
         }
 
         var intStatusTriggerData = Resources.LoadAll("Data/StatusTriggers", typeof(IntStatusTriggerData))
@@ -116,11 +134,12 @@ public class GameMaster : MonoBehaviour {
         _statusManager.Init();
         
         _statusManager.AddGameTimeStatusTrigger(DictGameTimeStatusTriggerData["GameOverByTimeTrigger"]);
+        _statusManager.AddIntStatusTrigger(DictIntStatusTriggerData["ProjectFinishTrigger"]);
 
         _statusManager.OnGameTimeChange += (value, diff) => {
-            var realPausetime = diff.TotalHourInGame * Config.HoursInRealSecond;
-            Debug.Log($"{realPausetime}");
-            Invoke(nameof(ResetBusyStatus), realPausetime);
+            var realPauseTime = diff.TotalHourInGame * Config.HoursInRealSecond;
+            Debug.Log($"{realPauseTime}");
+            Invoke(nameof(ResetBusyStatus), realPauseTime);
         };
     }
 
@@ -130,7 +149,7 @@ public class GameMaster : MonoBehaviour {
         }
         
         if (Input.GetKeyDown(KeyCode.Y)) {
-            _eventManager.CreateCard(DictActionCardData["Work"]);
+            _eventManager.CreateCard(DictActionCardData["Project"]);
         }
 
         if (Input.GetKeyDown(KeyCode.U)) {

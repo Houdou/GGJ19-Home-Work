@@ -71,6 +71,7 @@ public class StatusManager : MonoBehaviour {
 
     private GameStatus _status;
 
+    public GameTime CurrentTime => _status.CurrentTime;
     public bool Busy;
 
     public event Action<LocationType, LocationType> OnLocationChange;
@@ -81,18 +82,18 @@ public class StatusManager : MonoBehaviour {
     public event Action<int, int> OnFamilyHappinessChange;
     public event Action<int, int> OnCareerChange;
     public event Action<int, int> OnProjectProgressChange;
-    
-    
+
+
     private List<BaseEvent> _listEvents;
+
     private void Awake() {
-         _listEvents = new List<BaseEvent>();
-         _energyText = EnergyUI.GetComponentInChildren<TextMeshProUGUI>();
-         _moneyText = MoneyUI.GetComponentInChildren<TextMeshProUGUI>();
-         _timeText = TimeUI.GetComponentInChildren<TextMeshProUGUI>();
+        _listEvents = new List<BaseEvent>();
+        _energyText = EnergyUI.GetComponentInChildren<TextMeshProUGUI>();
+        _moneyText = MoneyUI.GetComponentInChildren<TextMeshProUGUI>();
+        _timeText = TimeUI.GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    private void Update() {
-    }
+    private void Update() { }
 
 
     public void Init() {
@@ -107,14 +108,17 @@ public class StatusManager : MonoBehaviour {
         _status.OnEnergyChange += (value, diff) => { OnEnergyChange?.Invoke(value, diff); };
         _status.OnPersonalHappinessChange += (value, diff) => { OnPersonalHappinessChange?.Invoke(value, diff); };
         _status.OnFamilyHappinessChange += (value, diff) => { OnFamilyHappinessChange?.Invoke(value, diff); };
-        _status.OnProjectProgressChange += (value, diff) => { OnProjectProgressChange?.Invoke(value, diff); };
+        _status.OnProjectProgressChange += (value, diff) => {
+            OnProjectProgressChange?.Invoke(value, diff);
+            Debug.Log($"value: {value}, diff: {diff}");
+        };
 
     }
 
     public void LoadStatus(GameStatus status) {
         _status.Replace(status);
     }
-    
+
     public void ProgressTime(GameTime time, bool capToday = false) {
         foreach (var ev in _listEvents) {
             ev.ProgressInTime(time);
@@ -128,18 +132,21 @@ public class StatusManager : MonoBehaviour {
     }
 
     #region StatusTrigger
-    public void AddStatusTrigger(IntStatusTriggerData trigger) {
+
+    public void AddIntStatusTrigger(IntStatusTriggerData trigger) {
+        Debug.Log($"Add {trigger}");
         switch (trigger.Field) {
             case StatusFields.Money: {
                 var handler = new Action<int, int>((value, diff) => {
                     if (!trigger.Test(value)) return;
-                    
+
                     foreach (var ev in trigger.TriggerEvents) {
                         EventManager.Instance.ProcessEvent(ev);
                     }
                 });
                 _status.OnMoneyChange += (value, diff) => {
                     handler(value, diff);
+                    if (trigger.Repeat) return;
                     _status.OnMoneyChange -= handler;
                 };
             }
@@ -147,46 +154,134 @@ public class StatusManager : MonoBehaviour {
             case StatusFields.Energy: {
                 var handler = new Action<int, int>((value, diff) => {
                     if (!trigger.Test(value)) return;
-                    
+
                     foreach (var ev in trigger.TriggerEvents) {
                         EventManager.Instance.ProcessEvent(ev);
                     }
                 });
-                _status.OnMoneyChange += (value, diff) => {
+                _status.OnEnergyChange += (value, diff) => {
                     handler(value, diff);
-                    _status.OnMoneyChange -= handler;
+                    if (trigger.Repeat) return;
+                    _status.OnEnergyChange -= handler;
                 };
             }
                 break;
-            default:
-                Debug.LogWarning($"Wrong data type Int to Field {nameof(trigger.Field)}");
+            case StatusFields.PersonalHappiness: {
+                var handler = new Action<int, int>((value, diff) => {
+                    if (!trigger.Test(value)) return;
+
+                    foreach (var ev in trigger.TriggerEvents) {
+                        EventManager.Instance.ProcessEvent(ev);
+                    }
+                });
+                _status.OnPersonalHappinessChange += (value, diff) => {
+                    handler(value, diff);
+                    if (trigger.Repeat) return;
+                    _status.OnPersonalHappinessChange -= handler;
+                };
+            }
+                break;
+            case StatusFields.FamilyHappiness: {
+                var handler = new Action<int, int>((value, diff) => {
+                    if (!trigger.Test(value)) return;
+
+                    foreach (var ev in trigger.TriggerEvents) {
+                        EventManager.Instance.ProcessEvent(ev);
+                    }
+                });
+                _status.OnFamilyHappinessChange += (value, diff) => {
+                    handler(value, diff);
+                    if (trigger.Repeat) return;
+                    _status.OnFamilyHappinessChange -= handler;
+                };
+            }
+                break;
+            case StatusFields.Career: {
+                var handler = new Action<int, int>((value, diff) => {
+                    if (!trigger.Test(value)) return;
+
+                    foreach (var ev in trigger.TriggerEvents) {
+                        EventManager.Instance.ProcessEvent(ev);
+                    }
+                });
+                _status.OnCareerChange += (value, diff) => {
+                    handler(value, diff);
+                    if (trigger.Repeat) return;
+                    _status.OnCareerChange -= handler;
+                };
+            }
+                break;
+            case StatusFields.ProjectProgress: {
+                var handler = new Action<int, int>((value, diff) => {
+                    if (!trigger.Test(value)) return;
+
+                    foreach (var ev in trigger.TriggerEvents) {
+                        EventManager.Instance.ProcessEvent(ev);
+                    }
+                });
+                _status.OnProjectProgressChange += (value, diff) => {
+                    handler(value, diff);
+                    if (trigger.Repeat) return;
+                    _status.OnProjectProgressChange -= handler;
+                };
+            }
                 break;
         }
     }
 
     public void AddGameTimeStatusTrigger(GameTimeStatusTriggerData trigger) {
-        switch (trigger.Field) {
-            case StatusFields.GameTime:
-                var handler = new Action<GameTime, GameTime>((value, diff) => {
-                    if (!trigger.Test(value)) return;
-                    
-                    foreach (var ev in trigger.TriggerEvents) {
-                        EventManager.Instance.ProcessEvent(ev);
-                    }
-                });
-                _status.OnGameTimeChange += (value, diff) => {
-                    handler(value, diff);
-                    _status.OnGameTimeChange -= handler;
-                };
-                break;
-            default:
-                Debug.LogWarning($"Wrong data type GameTime to Field {nameof(trigger.Field)}");
-                break;
-        }
+        if (trigger.Field != StatusFields.GameTime) return;
+
+        var handler = new Action<GameTime, GameTime>((value, diff) => {
+            if (!trigger.Test(value)) return;
+
+            foreach (var ev in trigger.TriggerEvents) {
+                EventManager.Instance.ProcessEvent(ev);
+            }
+        });
+        _status.OnGameTimeChange += (value, diff) => {
+            handler(value, diff);
+            _status.OnGameTimeChange -= handler;
+        };
     }
+
+    public void AddLocationStatusTrigger(LocationStatusTriggerData trigger) {
+        if (trigger.Field != StatusFields.Location) return;
+
+        var handler = new Action<LocationType, LocationType>((value, diff) => {
+            if (!trigger.Test(value)) return;
+
+            foreach (var ev in trigger.TriggerEvents) {
+                EventManager.Instance.ProcessEvent(ev);
+            }
+        });
+        _status.OnLocationChange += (value, diff) => {
+            handler(value, diff);
+            _status.OnLocationChange -= handler;
+        };
+    }
+
+    public void ApplyStatusChange(StatusChangeData changes) {
+        Debug.Log($"Applied {changes}");
+        _status.Merge(changes);
+
+        // TODO: Check date limit
+
+        if (changes.Time != GameTime.zero) {
+            ProgressTime(changes.Time, true);
+        }
+
+        if (changes.OverrideTime) {
+            _status.CurrentTime = changes.Time;
+        }
+
+        UpdateUI();
+    }
+
     #endregion
 
     #region Render
+
     public GameObject StatusContainer;
     public GameObject EnergyUI;
     private TextMeshProUGUI _energyText;
@@ -200,17 +295,7 @@ public class StatusManager : MonoBehaviour {
         _moneyText.text = $"Money {_status.Money}";
         _timeText.text = _status.CurrentTime.ToString();
     }
+
     #endregion
 
-    public void ApplyStatusChange(StatusChangeData statusChange) {
-        _status.Merge(statusChange);
-        
-        // TODO: Check date limit
-        
-        if (statusChange.Time != GameTime.zero) {
-            ProgressTime(statusChange.Time, true);
-        }
-        
-        UpdateUI();
-    }
 }

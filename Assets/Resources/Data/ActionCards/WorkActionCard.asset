@@ -10,14 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1418965365c8c4045b6679181c7923c0, type: 3}
-  m_Name: Cleaning
+  m_Name: WorkActionCard
   m_EditorClassIdentifier: 
-  Name: HouseCleaning
-  Location: 1
-  Time:
-    Day: 0
-    Hour: 6
-  Energy: 10
-  Money: -10
-  Cost: {fileID: 11400000, guid: db710862a6d454609bfd75db137b96a3, type: 2}
+  Name: Work
+  Location: 2
+  Cost: {fileID: 11400000, guid: ef06740d9295648f38e626b8ffe272e9, type: 2}
   TriggerEvents: []
