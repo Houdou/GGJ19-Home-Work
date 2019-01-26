@@ -5,6 +5,7 @@ public class Todo : BaseEvent {
 	public GameTime ExpireTime;
 
 	public bool IsExpired => IsExpirable && CurrentTime >= ExpireTime;
+	public GameTime RemainingTime => ExpireTime - CurrentTime;
 	
 	public Todo(bool isExpirable) {
 		IsExpirable = isExpirable;

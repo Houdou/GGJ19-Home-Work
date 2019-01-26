@@ -7,6 +7,7 @@ using UnityEngine;
 public class EventData : ScriptableObject {
     public string Name;
 
+    public GenerateActionCardsData[] GenerateActions;
     public StatusChangeData[] StatusChanges;
     public GameEnding Ending;
 }

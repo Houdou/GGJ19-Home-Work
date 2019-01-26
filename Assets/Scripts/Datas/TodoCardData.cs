@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Todo", menuName = "HomeWork/Todo")]
-public class TodoData : ScriptableObject {
+public class TodoCardData : ScriptableObject {
     public string Name;
-    public GameTime Time;
+    public LocationType Location;
+    public StatusChangeData Cost;
     
     public bool IsExpirable;
     public GameTime ExpiryTime;
 
-    public EventData FulFillEvent;
-    public EventData FailedEvent;
+    public EventData[] FulFillEvent;
+    public EventData[] FailedEvent;
 }

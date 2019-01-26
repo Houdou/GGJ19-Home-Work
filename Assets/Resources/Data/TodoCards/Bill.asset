@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2f4c23381cf24d4790a6864635482cc, type: 3}
   m_Name: Bill
   m_EditorClassIdentifier: 
-  Name: 
+  Name: PayBill
+  Time:
+    Day: 0
+    Hour: 0
+  IsExpirable: 1
+  ExpiryTime:
+    Day: 2
+    Hour: 0
   FulFillEvent: {fileID: 0}
-  FailedEvent: {fileID: 0}
+  FailedEvent: {fileID: 11400000, guid: 4767f0aa6b98340e8ab1025d160c0c6e, type: 2}

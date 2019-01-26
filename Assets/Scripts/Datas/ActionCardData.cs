@@ -6,11 +6,6 @@ using UnityEngine;
 public class ActionCardData : ScriptableObject {
 	public string Name;
 	public LocationType Location;
-	
-	public GameTime Time;
-	public int Energy;
-	public int Money;
-
 	public StatusChangeData Cost;
 
 	public EventData[] TriggerEvents;

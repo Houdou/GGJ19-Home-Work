@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14a4fac9c036475f82efde4f69f9aa3f, type: 3}
   m_Name: FailToPayBillChanges
   m_EditorClassIdentifier: 
-  Name: 
+  Name: FailToPayBillChanges
   Time:
     Day: 0
     Hour: 0
   Energy: 0
-  Money: 0
-  Happiness: 0
+  Money: -300
+  Happiness: -20

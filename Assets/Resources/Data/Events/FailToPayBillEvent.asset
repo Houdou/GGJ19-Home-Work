@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 415bb1b5c549b43ccaad2f6517575a83, type: 3}
   m_Name: FailToPayBillEvent
   m_EditorClassIdentifier: 
-  Name: 
-  StatusChanges: []
+  Name: FailToPayBillEvent
+  StatusChanges:
+  - {fileID: 11400000, guid: 251a699c202614248a15827b4e586f0b, type: 2}
   Ending: 0

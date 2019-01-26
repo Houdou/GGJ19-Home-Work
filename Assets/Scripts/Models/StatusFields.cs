@@ -9,7 +9,10 @@ public enum ConditionOperator {
 
 public enum StatusFields {
 	GameTime,
+	Location,
 	Money,
 	Energy,
-	Happiness,
+	PersonalHappiness,
+	FamilyHappiness,
+	Career
 }

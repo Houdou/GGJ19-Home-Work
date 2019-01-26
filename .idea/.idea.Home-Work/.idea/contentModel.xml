@@ -13,12 +13,13 @@
           <e p="Datas" t="Include">
             <e p="ActionCardData.cs" t="Include" />
             <e p="EventData.cs" t="Include" />
-            <e p="FloatStatusTriggerData.cs" t="Include" />
             <e p="GameTimeStatusTriggerData.cs" t="Include" />
+            <e p="GenerateActionCardsData.cs" t="Include" />
+            <e p="GenerateTodoCardsData.cs" t="Include" />
             <e p="IntStatusTriggerData.cs" t="Include" />
             <e p="StatusChangeData.cs" t="Include" />
             <e p="StatusTriggerData.cs" t="Include" />
-            <e p="TodoData.cs" t="Include" />
+            <e p="TodoCardData.cs" t="Include" />
           </e>
           <e p="EventManager.cs" t="Include" />
           <e p="GameMaster.cs" t="Include" />
@@ -26,6 +27,7 @@
           <e p="Models" t="Include">
             <e p="BaseEvent.cs" t="Include" />
             <e p="Card.cs" t="Include" />
+            <e p="CardType.cs" t="Include" />
             <e p="EnumExtension.cs" t="Include" />
             <e p="GameEnding.cs" t="Include" />
             <e p="GameStatus.cs" t="Include" />

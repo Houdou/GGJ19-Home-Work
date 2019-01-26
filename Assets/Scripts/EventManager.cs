@@ -115,6 +115,33 @@ public class EventManager : MonoBehaviour {
                 break;
         }
     }
+
+    public void GenerateNewGameTimeTrigger(CardType type, string cardName, GameTime time) {
+        switch (type) {
+            case CardType.Action: {
+                if (!GameMaster.Instance.DictActionCardData.ContainsKey(cardName)) {
+                Debug.LogWarning($"{name} {type.GetDescription()}Card does not exist");
+                    return;
+                }
+                var trigger = ScriptableObject.CreateInstance<GenerateActionCardsData>();
+                trigger.Name = $"Generate{cardName}Trigger";
+                trigger.ActionCardsToGenerate = new[] {cardName};
+            }
+                break;
+            case CardType.Todo: {
+                if (!GameMaster.Instance.DictTodoCardData.ContainsKey(cardName)) {
+                Debug.LogWarning($"{name} {type.GetDescription()}Card does not exist");
+                    return;
+                }
+                var trigger = ScriptableObject.CreateInstance<GenerateTodoCardsData>();
+                trigger.Name = $"Generate{cardName}Trigger";
+                trigger.TodoCardsToGenerate = new[] {cardName};
+            }
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(type), type, null);
+        }
+    }
     
 
     #region Render
@@ -143,10 +170,6 @@ public class EventManager : MonoBehaviour {
                 StatusManager.Instance.ApplyStatusChange(card.Cost);
             }
 
-            if (card.Time != GameTime.zero) {
-                StatusManager.Instance.ProgressTime(card.Time);
-            }
-            
             // TODO: Remove cards
             OnCardDestroyed?.Invoke(cardController);
         };

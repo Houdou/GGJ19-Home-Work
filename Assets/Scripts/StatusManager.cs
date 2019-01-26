@@ -170,10 +170,6 @@ public class StatusManager : MonoBehaviour {
         }
     }
 
-    public void AddFloatStatusTrigger(FloatStatusTriggerData trigger) {
-        
-    }
-    
     public void AddGameTimeStatusTrigger(GameTimeStatusTriggerData trigger) {
         switch (trigger.Field) {
             case StatusFields.GameTime:
