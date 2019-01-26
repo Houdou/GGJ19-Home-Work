@@ -132,7 +132,9 @@ public class GameStatus {
 		FamilyHappiness += changes.FamilyHappiness;
 		Career += changes.Career;
 		
-		Location = changes.Location;
+		if(changes.Location != LocationType.Null) {
+			Location = changes.Location;
+		}
 	}
 
 	public void Replace(GameStatus status, bool triggerEvents = false) {
