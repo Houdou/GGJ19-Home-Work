@@ -111,6 +111,10 @@ public class StatusManager : MonoBehaviour {
         _status.Replace(status);
     }
 
+    public void ProgressTime(GameTime time) {
+        _status.CurrentTime += time;
+    }
+
     #region StatusTrigger
 
     public void AddIntStatusTrigger(IntStatusTriggerData trigger) {
@@ -246,14 +250,12 @@ public class StatusManager : MonoBehaviour {
         _status.Merge(changes);
 
         // TODO: Check date limit
-        if (changes.Time != GameTime.zero) {
-            _status.CurrentTime += changes.Time;
+        if (changes.OverrideTime) {
+            _status.CurrentTime = changes.Time;
+        } else if (changes.Time != GameTime.zero) {
             EventManager.Instance.ProgressTime(changes.Time);
         }
 
-        if (changes.OverrideTime) {
-            _status.CurrentTime = changes.Time;
-        }
 
         UpdateUI();
     }

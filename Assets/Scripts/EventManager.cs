@@ -228,7 +228,6 @@ public class EventManager : MonoBehaviour {
     
     private CardController DrawTodo(TodoCardData data) {
         var panel = _dicLocationPanel[data.Location];
-        // TODO: Use group manager to update pos
         var thoughtPos = _dicRefPos[$"{panel}CardCenterPos"].position;
         var parentTransform = _dicRefPos[$"{panel}CardContainer"];
 
@@ -260,5 +259,7 @@ public class EventManager : MonoBehaviour {
         foreach (var ev in _listTodo) {
             ev.ProgressInTime(time);
         }
+
+        StatusManager.Instance.ProgressTime(time);
     }
 }
