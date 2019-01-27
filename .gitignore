@@ -5,6 +5,10 @@
 [Bb]uilds/
 [Ll]ogs/
 
+.DS_Store
+.idea/
+Build.app
+
 # Never ignore Asset meta data
 ![Aa]ssets/**/*.meta
 
