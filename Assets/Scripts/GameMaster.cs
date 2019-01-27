@@ -105,6 +105,7 @@ public class GameMaster : MonoBehaviour {
 
     public Dictionary<string, ActionCardData> DictActionCardData;
     public Dictionary<string, TodoCardData> DictTodoCardData;
+    public Dictionary<string, GenerateCardsData> DictGenerateCardsData;
     public Dictionary<string, GenerateDelayedCardsData> DictGenerateDelayedCardsData;
     public Dictionary<string, IntStatusTriggerData> DictIntStatusTriggerData;
     public Dictionary<string, LocationStatusTriggerData> DictLocationStatusTriggerData;
@@ -129,6 +130,14 @@ public class GameMaster : MonoBehaviour {
             DictTodoCardData.Add(card.Name, card);
         }
 
+        var generateCardsData = Resources.LoadAll("Data/GenerateDelayedCards", typeof(GenerateCardsData))
+            .Cast<GenerateCardsData>().ToArray();
+
+        DictGenerateCardsData = new Dictionary<string, GenerateCardsData>();
+        foreach (var card in generateCardsData) {
+            DictGenerateCardsData.Add(card.Name, card);
+        }
+        
         var generateDelayedCardsData = Resources.LoadAll("Data/GenerateDelayedCards", typeof(GenerateDelayedCardsData))
             .Cast<GenerateDelayedCardsData>().ToArray();
 
