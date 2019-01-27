@@ -15,6 +15,6 @@ MonoBehaviour:
   Name: GenerateCards
   ActionCardsToGenerate: []
   TodoCardsToGenerate:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: ba2a192cbe56c441a97f5d0d17feea79, type: 2}
+  - {fileID: 11400000, guid: 660b9052c74874daf90f8d6e577546d2, type: 2}
   IsEmergency: 0

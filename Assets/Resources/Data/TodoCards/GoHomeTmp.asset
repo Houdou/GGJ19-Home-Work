@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2f4c23381cf24d4790a6864635482cc, type: 3}
-  m_Name: GoOfficeTmp
+  m_Name: GoHomeTmp
   m_EditorClassIdentifier: 
-  Name: Todo
-  Location: 0
+  Name: Go Home
+  Location: 2
   Cost: {fileID: 0}
   IsInternal: 0
   IsExpirable: 0
   ExpiryTime:
     Day: 0
     Hour: 0
-  FulFillEvent: []
+  FulFillEvent:
+  - {fileID: 11400000, guid: 9ff0f3d24ecfd48ef94a468f05911749, type: 2}
   FailedEvent: []

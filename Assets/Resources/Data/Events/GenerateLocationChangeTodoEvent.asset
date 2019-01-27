@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: GenerateLocationChangeTodoEvent
   m_EditorClassIdentifier: 
   Name: Event
-  CardsGenerations: []
+  CardsGenerations:
+  - {fileID: 11400000, guid: 038b7b967db804697a9255fecabf92d1, type: 2}
   CardsDeletions: []
   DelayedCardsGenerations: []
   StatusChanges: []

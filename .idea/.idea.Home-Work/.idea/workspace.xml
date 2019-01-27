@@ -4,13 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/Assets/Scripts/EventManager.cs" line="259" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="09b0d69b-bc1d-4b96-b5c7-a2c7140531fd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Home-Work/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Home-Work/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Data/ActionCards/HouseCleaning.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Data/ActionCards/HouseCleaning.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controllers/CardController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/CardController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EventManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EventManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StatusManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StatusManager.cs" afterDir="false" />
-    </list>
+    <list default="true" id="09b0d69b-bc1d-4b96-b5c7-a2c7140531fd" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,11 +13,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Assets/Scripts/EventManager.cs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="589">
-              <caret line="269" column="57" lean-forward="true" selection-start-line="269" selection-start-column="57" selection-end-line="269" selection-end-column="57" />
+              <caret line="269" column="25" selection-start-line="269" selection-start-column="25" selection-end-line="269" selection-end-column="25" />
               <folding>
                 <marker date="1548563628919" expanded="false" signature="6:127" ph="..." />
                 <marker date="1548563628919" expanded="true" signature="171:11629" ph="{...}" />
@@ -109,7 +103,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Assets/Scripts/Controllers/CardController.cs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="320">
@@ -573,7 +567,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66522000" />
+    <option name="totallyTimeSpent" value="66801000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1226,10 +1220,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Controllers/CardController.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="25" column="66" lean-forward="true" selection-start-line="25" selection-start-column="66" selection-end-line="25" selection-end-column="66" />
+          <folding>
+            <marker date="1548563747908" expanded="false" signature="6:127" ph="..." />
+            <marker date="1548563747908" expanded="true" signature="176:1412" ph="{...}" />
+            <marker date="1548563747908" expanded="true" signature="422:478" ph="{...}" />
+            <marker date="1548563747908" expanded="true" signature="506:814" ph="{...}" />
+            <marker date="1548563747908" expanded="true" signature="846:880" ph="{...}" />
+            <marker date="1548563747908" expanded="true" signature="915:1065" ph="{...}" />
+            <marker date="1548563747908" expanded="true" signature="1067:1410" ph="/* public void MouseOver() { ... */" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Assets/Scripts/EventManager.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="589">
-          <caret line="269" column="57" lean-forward="true" selection-start-line="269" selection-start-column="57" selection-end-line="269" selection-end-column="57" />
+          <caret line="269" column="25" selection-start-line="269" selection-start-column="25" selection-end-line="269" selection-end-column="25" />
           <folding>
             <marker date="1548563628919" expanded="false" signature="6:127" ph="..." />
             <marker date="1548563628919" expanded="true" signature="171:11629" ph="{...}" />
@@ -1285,22 +1295,6 @@
             <marker date="1548563628919" expanded="true" signature="11341:11433" ph="{...}" />
             <marker date="1548563628919" expanded="true" signature="11533:11627" ph="{...}" />
             <marker date="1548563628919" expanded="true" signature="11573:11621" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Controllers/CardController.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="25" column="66" lean-forward="true" selection-start-line="25" selection-start-column="66" selection-end-line="25" selection-end-column="66" />
-          <folding>
-            <marker date="1548563747908" expanded="false" signature="6:127" ph="..." />
-            <marker date="1548563747908" expanded="true" signature="176:1412" ph="{...}" />
-            <marker date="1548563747908" expanded="true" signature="422:478" ph="{...}" />
-            <marker date="1548563747908" expanded="true" signature="506:814" ph="{...}" />
-            <marker date="1548563747908" expanded="true" signature="846:880" ph="{...}" />
-            <marker date="1548563747908" expanded="true" signature="915:1065" ph="{...}" />
-            <marker date="1548563747908" expanded="true" signature="1067:1410" ph="/* public void MouseOver() { ... */" />
           </folding>
         </state>
       </provider>

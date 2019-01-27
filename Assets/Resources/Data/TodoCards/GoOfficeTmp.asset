@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2f4c23381cf24d4790a6864635482cc, type: 3}
   m_Name: GoOfficeTmp
   m_EditorClassIdentifier: 
-  Name: Todo
-  Location: 0
+  Name: Go Office
+  Location: 1
   Cost: {fileID: 0}
   IsInternal: 0
   IsExpirable: 0
   ExpiryTime:
     Day: 0
     Hour: 0
-  FulFillEvent: []
+  FulFillEvent:
+  - {fileID: 11400000, guid: 8b4f89712f43c45a480a07237be7ecc0, type: 2}
   FailedEvent: []

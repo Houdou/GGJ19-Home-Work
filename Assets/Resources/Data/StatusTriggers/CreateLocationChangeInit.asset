@@ -14,14 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: StatusTrigger
   Field: 0
-  ConditionOperator: 0
-  IsInnate: 0
+  ConditionOperator: 3
+  IsInnate: 1
   Repeat: 0
-  Inactive: 0
+  Inactive: 1
   DeltaTime:
     Day: 0
     Hour: 0
-  TriggerEvents: []
+  TriggerEvents:
+  - {fileID: 11400000, guid: a158fb9e7681949bbbf702896dae859c, type: 2}
   TargetGameTime:
     Day: 0
     Hour: 0
