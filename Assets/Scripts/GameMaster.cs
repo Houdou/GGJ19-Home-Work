@@ -88,7 +88,7 @@ public class GameMaster : MonoBehaviour {
     void Update() {
         if (Input.GetKeyDown(KeyCode.T)) {
             //_eventManager.CreateTodo(DictTodoCardData["BlackFriday"]);
-            _eventManager.CreateCard(DictActionCardData["Project"]);
+            _eventManager.CreateCard(DictActionCardData["ProjectActionCard"]);
         }
 
         if (Input.GetKeyDown(KeyCode.Y)) {
@@ -105,6 +105,7 @@ public class GameMaster : MonoBehaviour {
 
     public Dictionary<string, ActionCardData> DictActionCardData;
     public Dictionary<string, TodoCardData> DictTodoCardData;
+    public Dictionary<string, EventData> DictEventData;
     public Dictionary<string, GenerateCardsData> DictGenerateCardsData;
     public Dictionary<string, GenerateDelayedCardsData> DictGenerateDelayedCardsData;
     public Dictionary<string, IntStatusTriggerData> DictIntStatusTriggerData;
@@ -129,6 +130,14 @@ public class GameMaster : MonoBehaviour {
         foreach (var card in todoCardData) {
             DictTodoCardData.Add(card.name, card);
         }
+        
+        var eventData = Resources.LoadAll("Data/Events", typeof(EventData))
+            .Cast<EventData>().ToArray();
+
+        DictEventData = new Dictionary<string, EventData>();
+        foreach (var card in eventData) {
+            DictEventData.Add(card.name, card);
+        }
 
         var generateCardsData = Resources.LoadAll("Data/GenerateCards", typeof(GenerateCardsData))
             .Cast<GenerateCardsData>().ToArray();
@@ -151,6 +160,7 @@ public class GameMaster : MonoBehaviour {
 
         DictIntStatusTriggerData = new Dictionary<string, IntStatusTriggerData>();
         foreach (var trigger in intStatusTriggerData) {
+            trigger.Inactive = false;
             DictIntStatusTriggerData.Add(trigger.name, trigger);
         }
         
@@ -159,6 +169,7 @@ public class GameMaster : MonoBehaviour {
 
         DictLocationStatusTriggerData = new Dictionary<string, LocationStatusTriggerData>();
         foreach (var trigger in locationStatusTriggerData) {
+            trigger.Inactive = false;
             DictLocationStatusTriggerData.Add(trigger.name, trigger);
         }
 
@@ -167,6 +178,7 @@ public class GameMaster : MonoBehaviour {
 
         DictGameTimeStatusTriggerData = new Dictionary<string, GameTimeStatusTriggerData>();
         foreach (var trigger in gameTimeStatusTriggerData) {
+            trigger.Inactive = false;
             DictGameTimeStatusTriggerData.Add(trigger.name, trigger);
         }
 

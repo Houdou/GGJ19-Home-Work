@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 415bb1b5c549b43ccaad2f6517575a83, type: 3}
   m_Name: RestEvent
   m_EditorClassIdentifier: 
-  Name: Event
+  Name: RestEvent
   CardsGenerations: []
   DelayedCardsGenerations: []
-  StatusChanges: []
+  StatusChanges:
+  - {fileID: 11400000, guid: 454203b0d66604305a3e824b6338262a, type: 2}
   Ending: 0

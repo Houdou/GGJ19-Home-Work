@@ -111,6 +111,21 @@ public class EventManager : MonoBehaviour {
     public void ProcessEvent(EventData ev) {
         Debug.Log($"Processing {ev}");
         // TODO: Special handling for some events
+        if (ev.Name == "RestEvent" || ev.Name == "NapEvent") {
+            var time = StatusManager.Instance.RemainingTimeInDay;
+            
+            Debug.Log(time);
+
+            var restEvent = GameMaster.Instance.DictEventData[ev.Name];
+            foreach (var changes in restEvent.StatusChanges) {
+                for (int i = 0; i < time.TotalHourInGame; i++) {
+                    StatusManager.Instance.ApplyStatusChange(changes);
+                }
+            }
+            
+            ClearActionCards();
+            return;
+        }
 
         foreach (var statusChange in ev.StatusChanges) {
             StatusManager.Instance.ApplyStatusChange(statusChange);
@@ -173,8 +188,10 @@ public class EventManager : MonoBehaviour {
             if (data.Cost) {
                 StatusManager.Instance.ApplyStatusChange(data.Cost);
             }
-            
-            ClearActionCards();
+
+            foreach (var ev in data.TriggerEvents) {
+                ProcessEvent(ev);
+            }
         };
     }
 
@@ -225,6 +242,7 @@ public class EventManager : MonoBehaviour {
         var newCard = Instantiate(CardPrefab, pos, Quaternion.identity, parentTransform);
         var cardController = newCard.GetComponent<CardController>();
         cardController.DetailOffset = new Vector2(0f, 100f);
+        cardController.name = data.Name;
         cardController.PinPos = pos;
         cardController.GetComponentInChildren<TextMeshProUGUI>().text = data.Name;
         _listActionCards.Add(cardController);
@@ -242,6 +260,7 @@ public class EventManager : MonoBehaviour {
 
         var newCard = Instantiate(TodoPrefab, pos, Quaternion.identity, parentTransform);
         var cardController = newCard.GetComponent<CardController>();
+        cardController.name = data.Name;
         cardController.PinPos = pos;
         cardController.GetComponentInChildren<TextMeshProUGUI>().text = data.Name;
         _listTodoCards.Add(cardController);
@@ -252,6 +271,19 @@ public class EventManager : MonoBehaviour {
     public void ClearAllCards() {
         ClearActionCards();
         ClearTodoCards();
+    }
+
+    public void ClearCardOf(string name) {
+        CardController toRemove = null;
+        foreach (var card in _listActionCards) {
+            if (card.name == name) {
+                toRemove = card;
+            }
+        }
+
+        if (!toRemove) return;
+        OnCardDestroyed?.Invoke(toRemove);
+        Destroy(toRemove.gameObject);
     }
 
     public void ClearActionCards() {

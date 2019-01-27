@@ -5,6 +5,8 @@
 [Bb]uilds/
 [Ll]ogs/
 
+Build.App
+
 # Never ignore Asset meta data
 ![Aa]ssets/**/*.meta
 

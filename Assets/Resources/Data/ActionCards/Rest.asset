@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1418965365c8c4045b6679181c7923c0, type: 3}
   m_Name: Rest
   m_EditorClassIdentifier: 
-  Name: Action
-  Location: 0
+  Name: Rest
+  Location: 1
   Cost: {fileID: 0}
-  TriggerEvents: []
+  TriggerEvents:
+  - {fileID: 11400000, guid: 9487a38783b9843bdb18d7da0783260a, type: 2}

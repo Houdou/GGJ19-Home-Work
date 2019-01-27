@@ -74,6 +74,7 @@ public class StatusManager : MonoBehaviour {
     public ViewController View;
 
     public GameTime CurrentTime => _status.CurrentTime;
+    public GameTime RemainingTimeInDay => _status.RemainingHourToday;
     public LocationType Location => _status.Location;
     public bool Busy;
 
@@ -259,32 +260,35 @@ public class StatusManager : MonoBehaviour {
         if (trigger.Field != StatusFields.GameTime) return;
 
         var handler = new Action<GameTime, GameTime>((value, diff) => {
-            if (!trigger.Test(value)) return;
+            if (trigger.Inactive || !trigger.Test(value)) return;
 
             foreach (var ev in trigger.TriggerEvents) {
                 EventManager.Instance.ProcessEvent(ev);
             }
-        });
-        _status.OnGameTimeChange += (value, diff) => {
-            handler(value, diff);
+            
             if (trigger.Repeat) {
-                trigger.TargetGameTime += trigger.DeltaTime;
-                return;
+                var newTrigger = ScriptableObject.CreateInstance<GameTimeStatusTriggerData>();
+                newTrigger.Name = trigger.Name;
+                newTrigger.name = trigger.name;
+                newTrigger.IsInnate = trigger.IsInnate;
+                newTrigger.Repeat = trigger.Repeat;
+                newTrigger.Field = trigger.Field;
+                newTrigger.ConditionOperator = trigger.ConditionOperator;
+                newTrigger.DeltaTime = trigger.DeltaTime;
+                newTrigger.TriggerEvents = trigger.TriggerEvents;
+
+                newTrigger.TargetGameTime = trigger.TargetGameTime + trigger.DeltaTime;
+
+                AddGameTimeStatusTrigger(newTrigger);
+                GameMaster.Instance.DictGameTimeStatusTriggerData[trigger.name] = newTrigger;
+                trigger.Inactive = true;
             };
-            _status.OnGameTimeChange -= handler;
-        };
+        });
+        _status.OnGameTimeChange += handler;
 
         // Handle immediate invoke
         if (trigger.Test(CurrentTime)) {
-            foreach (var ev in trigger.TriggerEvents) {
-                EventManager.Instance.ProcessEvent(ev);
-            }
-
-            if (trigger.Repeat) {
-                trigger.TargetGameTime += trigger.DeltaTime;
-                return;
-            }
-            _status.OnGameTimeChange -= handler;
+            handler(CurrentTime, GameTime.zero);
         }
     }
 

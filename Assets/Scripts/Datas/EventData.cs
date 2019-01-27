@@ -9,6 +9,7 @@ public class EventData : ScriptableObject {
     public GenerateCardsData[] CardsGenerations;
     public GenerateDelayedCardsData[] DelayedCardsGenerations;
     
+    
     public StatusChangeData[] StatusChanges;
     public GameEnding Ending;
 }

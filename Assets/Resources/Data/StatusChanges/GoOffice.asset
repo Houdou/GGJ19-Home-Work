@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14a4fac9c036475f82efde4f69f9aa3f, type: 3}
-  m_Name: Rest
+  m_Name: GoOffice
   m_EditorClassIdentifier: 
-  Name: 
+  Name: StatusChange
   Time:
     Day: 0
-    Hour: 1
+    Hour: 0
   OverrideTime: 0
-  Location: 1
-  OverrideLocation: 0
+  Location: 2
+  OverrideLocation: 1
   Money: 0
   OverrideMoney: 0
-  Energy: 10
+  Energy: 0
   OverrideEnergy: 0
   PersonalHappiness: 0
   OverridePersonalHappiness: 0

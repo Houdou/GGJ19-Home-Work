@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c843bef809342ccb576cba8d462b3d9, type: 3}
+  m_Name: DailyOfficeActionGenerationEventTrigger
+  m_EditorClassIdentifier: 
+  Name: 
+  Field: 0
+  ConditionOperator: 3
+  IsInnate: 1
+  Repeat: 1
+  Inactive: 0
+  DeltaTime:
+    Day: 2
+    Hour: 0
+  TriggerEvents:
+  - {fileID: 11400000, guid: d4e3fd3336f2d4b2ca320b05df48a116, type: 2}
+  TargetGameTime:
+    Day: 1
+    Hour: 0

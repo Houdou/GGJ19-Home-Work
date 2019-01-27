@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 415bb1b5c549b43ccaad2f6517575a83, type: 3}
-  m_Name: DailyHomeActionGeneratesEvent
+  m_Name: GoOffice
   m_EditorClassIdentifier: 
-  Name: 
-  CardsGenerations:
-  - {fileID: 11400000, guid: 89912e98d53f249c5af250b86999d18d, type: 2}
+  Name: Event
+  CardsGenerations: []
   DelayedCardsGenerations: []
-  StatusChanges: []
+  StatusChanges:
+  - {fileID: 11400000, guid: 1464341ad7a1c4bc9a5499fe6a8ff1a7, type: 2}
   Ending: 0

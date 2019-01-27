@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Nap
   m_EditorClassIdentifier: 
   Name: Nap
-  Location: 1
-  Cost: {fileID: 11400000, guid: 74db7c03f2d0cc14888263ddac50ede9, type: 2}
-  TriggerEvents: []
+  Location: 2
+  Cost: {fileID: 0}
+  TriggerEvents:
+  - {fileID: 11400000, guid: c098261f037cc4563aa9b272208c19a0, type: 2}

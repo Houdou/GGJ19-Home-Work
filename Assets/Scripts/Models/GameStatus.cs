@@ -53,10 +53,19 @@ public class GameStatus {
 	public int Energy {
 		get { return _energy; }
 		set {
-			var diff = value - _energy;
-			_energy = value;
+			var next = value;
+			if (value > 100) {
+				next = 100;
+			}
+
+			if (value < 0) {
+				next = 0;
+			}
+			
+			var diff = next - _energy;
+			_energy = next;
 			if (diff != 0) {
-				OnEnergyChange?.Invoke(value, diff);
+				OnEnergyChange?.Invoke(next, diff);
 			}
 
 		}
@@ -67,10 +76,18 @@ public class GameStatus {
 	public int PersonalHappiness {
 		get { return _personalHappiness; }
 		set {
-			var diff = value - _personalHappiness;
-			_personalHappiness = value;
+			var next = value;
+			if (value > 100) {
+				next = 100;
+			}
+
+			if (value < 0) {
+				next = 0;
+			}
+			var diff = next - _personalHappiness;
+			_personalHappiness = next;
 			if (diff != 0) {
-				OnPersonalHappinessChange?.Invoke(value, diff);
+				OnPersonalHappinessChange?.Invoke(next, diff);
 			}
 
 		}
@@ -81,10 +98,18 @@ public class GameStatus {
 	public int FamilyHappiness {
 		get { return _familyHappiness; }
 		set {
-			var diff = value - _familyHappiness;
-			_familyHappiness = value;
+			var next = value;
+			if (value > 100) {
+				next = 100;
+			}
+
+			if (value < 0) {
+				next = 0;
+			}
+			var diff = next - _familyHappiness;
+			_familyHappiness = next;
 			if (diff != 0) {
-				OnFamilyHappinessChange?.Invoke(value, diff);
+				OnFamilyHappinessChange?.Invoke(next, diff);
 			}
 
 		}
@@ -95,10 +120,20 @@ public class GameStatus {
 	public int Career {
 		get { return _career; }
 		set {
-			var diff = value - _career;
-			_career = value;
+			
+			var next = value;
+			if (value > 100) {
+				next = 100;
+			}
+
+			if (value < 0) {
+				next = 0;
+			}
+
+			var diff = next - _career;
+			_career = next;
 			if (diff != 0) {
-				OnCareerChange?.Invoke(value, diff);
+				OnCareerChange?.Invoke(next, diff);
 			}
 
 		}

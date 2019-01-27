@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 151c46ae4a574c7386fb3d3dc3fab4f8, type: 3}
-  m_Name: DailyHomeCards
+  m_Name: DailyOfficeCards
   m_EditorClassIdentifier: 
   Name: 
   ActionCardsToGenerate:
-  - {fileID: 11400000, guid: f7ce8657585b045889b36072f6568f11, type: 2}
-  - {fileID: 11400000, guid: 7e6642e45dff386439edf65407705d99, type: 2}
-  - {fileID: 11400000, guid: 62ec7404a1f9a754eacfc102707e0f06, type: 2}
-  - {fileID: 11400000, guid: c76314c2826794305acea5b5cdc3414c, type: 2}
+  - {fileID: 11400000, guid: e8f820187b3ea40c2b580f5b865a5ddb, type: 2}
+  - {fileID: 11400000, guid: 411446b3686fed848bb88a25b9bf83e8, type: 2}
+  - {fileID: 11400000, guid: 6fd12021b4be03f4cadf2b49af0a63ab, type: 2}
   TodoCardsToGenerate: []
   IsEmergency: 0
