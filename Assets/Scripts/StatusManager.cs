@@ -273,6 +273,19 @@ public class StatusManager : MonoBehaviour {
             };
             _status.OnGameTimeChange -= handler;
         };
+
+        // Handle immediate invoke
+        if (trigger.Test(CurrentTime)) {
+            foreach (var ev in trigger.TriggerEvents) {
+                EventManager.Instance.ProcessEvent(ev);
+            }
+
+            if (trigger.Repeat) {
+                trigger.TargetGameTime += trigger.DeltaTime;
+                return;
+            }
+            _status.OnGameTimeChange -= handler;
+        }
     }
 
     public void AddLocationStatusTrigger(LocationStatusTriggerData trigger) {
