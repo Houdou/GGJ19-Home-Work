@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,9 +13,18 @@ public class CardController : SpriteController {
     public GameObject DetailsPrefab;
     private GameObject _detail;
 
+    public LocationType BelongingLocation;
+
     protected override void Awake() {
         base.Awake();
 //        CreateDetails();
+    }
+
+    private void Update() {
+        var shouldDisplay = StatusManager.Instance.Location == BelongingLocation;
+        gameObject.GetComponent<Image>().enabled = shouldDisplay;
+        gameObject.GetComponent<Button>().enabled = shouldDisplay;
+        gameObject.GetComponentInChildren<TextMeshProUGUI>().enabled = shouldDisplay;
     }
 
     public void HandleClick() {

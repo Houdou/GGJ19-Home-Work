@@ -248,6 +248,7 @@ public class EventManager : MonoBehaviour {
         var cardController = newCard.GetComponent<CardController>();
         cardController.DetailOffset = new Vector2(0f, 100f);
         cardController.name = data.name;
+        cardController.BelongingLocation = data.Location;
         cardController.PinPos = pos;
         cardController.GetComponentInChildren<TextMeshProUGUI>().text = data.Name;
         _listActionCards.Add(cardController);
@@ -261,11 +262,12 @@ public class EventManager : MonoBehaviour {
         var parentTransform = _dicRefPos[$"{panel}CardContainer"];
         var cardIndex = _listTodoCards.Count;
 
-        pos += new Vector3(0f, -Config.CardVerticalStep * cardIndex, 0f);
+        pos += new Vector3(0f, -Config.CardVerticalStep * cardIndex * 0f, 0f);
 
         var newCard = Instantiate(TodoPrefab, pos, Quaternion.identity, parentTransform);
         var cardController = newCard.GetComponent<CardController>();
         cardController.name = data.name;
+        cardController.BelongingLocation = data.Location;
         cardController.PinPos = pos;
         cardController.GetComponentInChildren<TextMeshProUGUI>().text = data.Name;
         _listTodoCards.Add(cardController);

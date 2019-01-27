@@ -170,6 +170,8 @@ public class StatusManager : MonoBehaviour {
                     foreach (var ev in trigger.TriggerEvents) {
                         EventManager.Instance.ProcessEvent(ev);
                     }
+
+                    trigger.Inactive = true;
                 });
                 _status.OnMoneyChange += (value, diff) => {
                     handler(value, diff);
@@ -185,6 +187,8 @@ public class StatusManager : MonoBehaviour {
                     foreach (var ev in trigger.TriggerEvents) {
                         EventManager.Instance.ProcessEvent(ev);
                     }
+                    
+                    trigger.Inactive = true;
                 });
                 _status.OnEnergyChange += (value, diff) => {
                     handler(value, diff);
@@ -200,6 +204,8 @@ public class StatusManager : MonoBehaviour {
                     foreach (var ev in trigger.TriggerEvents) {
                         EventManager.Instance.ProcessEvent(ev);
                     }
+                    
+                    trigger.Inactive = true;
                 });
                 _status.OnPersonalHappinessChange += (value, diff) => {
                     handler(value, diff);
@@ -215,6 +221,8 @@ public class StatusManager : MonoBehaviour {
                     foreach (var ev in trigger.TriggerEvents) {
                         EventManager.Instance.ProcessEvent(ev);
                     }
+                    
+                    trigger.Inactive = true;
                 });
                 _status.OnFamilyHappinessChange += (value, diff) => {
                     handler(value, diff);
@@ -230,6 +238,8 @@ public class StatusManager : MonoBehaviour {
                     foreach (var ev in trigger.TriggerEvents) {
                         EventManager.Instance.ProcessEvent(ev);
                     }
+                    
+                    trigger.Inactive = true;
                 });
                 _status.OnCareerChange += (value, diff) => {
                     handler(value, diff);
@@ -245,6 +255,8 @@ public class StatusManager : MonoBehaviour {
                     foreach (var ev in trigger.TriggerEvents) {
                         EventManager.Instance.ProcessEvent(ev);
                     }
+                    
+                    trigger.Inactive = true;
                 });
                 _status.OnProjectProgressChange += (value, diff) => {
                     handler(value, diff);
@@ -281,8 +293,9 @@ public class StatusManager : MonoBehaviour {
 
                 AddGameTimeStatusTrigger(newTrigger);
                 GameMaster.Instance.DictGameTimeStatusTriggerData[trigger.name] = newTrigger;
-                trigger.Inactive = true;
-            };
+            }
+            trigger.Inactive = true;
+
         });
         _status.OnGameTimeChange += handler;
     }

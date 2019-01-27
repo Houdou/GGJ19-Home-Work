@@ -9,10 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1418965365c8c4045b6679181c7923c0, type: 3}
-  m_Name: HouseCleaning
+  m_Script: {fileID: 11500000, guid: 9c843bef809342ccb576cba8d462b3d9, type: 3}
+  m_Name: CreateLocationChangeInit
   m_EditorClassIdentifier: 
-  Name: HouseCleaning
-  Location: 1
-  Cost: {fileID: 11400000, guid: db710862a6d454609bfd75db137b96a3, type: 2}
+  Name: StatusTrigger
+  Field: 0
+  ConditionOperator: 0
+  IsInnate: 0
+  Repeat: 0
+  Inactive: 0
+  DeltaTime:
+    Day: 0
+    Hour: 0
   TriggerEvents: []
+  TargetGameTime:
+    Day: 0
+    Hour: 0
