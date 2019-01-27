@@ -5,8 +5,6 @@
 [Bb]uilds/
 [Ll]ogs/
 
-Build.App
-
 # Never ignore Asset meta data
 ![Aa]ssets/**/*.meta
 
@@ -52,3 +50,4 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+Assets/Scripts/StatusManager.cs
