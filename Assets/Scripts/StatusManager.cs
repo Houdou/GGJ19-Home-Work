@@ -267,6 +267,10 @@ public class StatusManager : MonoBehaviour {
         });
         _status.OnGameTimeChange += (value, diff) => {
             handler(value, diff);
+            if (trigger.Repeat) {
+                trigger.TargetGameTime += trigger.DeltaTime;
+                return;
+            };
             _status.OnGameTimeChange -= handler;
         };
     }
@@ -283,6 +287,7 @@ public class StatusManager : MonoBehaviour {
         });
         _status.OnLocationChange += (value, diff) => {
             handler(value, diff);
+            if (trigger.Repeat) return;
             _status.OnLocationChange -= handler;
         };
     }

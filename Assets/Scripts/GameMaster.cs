@@ -130,7 +130,7 @@ public class GameMaster : MonoBehaviour {
             DictTodoCardData.Add(card.Name, card);
         }
 
-        var generateCardsData = Resources.LoadAll("Data/GenerateDelayedCards", typeof(GenerateCardsData))
+        var generateCardsData = Resources.LoadAll("Data/GenerateCards", typeof(GenerateCardsData))
             .Cast<GenerateCardsData>().ToArray();
 
         DictGenerateCardsData = new Dictionary<string, GenerateCardsData>();

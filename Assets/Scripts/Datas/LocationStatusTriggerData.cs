@@ -1,3 +1,6 @@
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "New Location Status Trigger", menuName = "HomeWork/StatusTrigger/Location")]
 public class LocationStatusTriggerData : StatusTriggerData {
 	public LocationType TargetIntValue;
 
