@@ -6,7 +6,8 @@ public class HomeWomanController : CrossFadeSpriteController {
 		if (location != LocationType.Home) {
 			return "PlaceHolder";
 		}
-		
-		return $"Home-Woman-{(time.IsNight ? "Night" : "Day")}{(statusManager.Sick ? "-Sick" : "")}";
+		var attr = statusManager.Normal ? "" : statusManager.LieDown && location == LocationType.Home ? "-Lie" : "-Sick";
+
+		return $"Home-Woman-{(time.IsNight ? "Night" : "Day")}{attr}";
 	}
 }

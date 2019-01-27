@@ -6,7 +6,8 @@ public class OfficeManController : CrossFadeSpriteController {
 		if (location != LocationType.Office) {
 			return "PlaceHolder";
 		}
-		
-		return $"Office-Man-{(time.IsNight ? "Night" : "Day")}{(statusManager.Sick ? "-Sick" : "")}";
+		var attr = statusManager.Normal ? "" : statusManager.LieDown && location == LocationType.Home ? "-Lie" : "-Sick";
+
+		return $"Office-Man-{(time.IsNight ? "Night" : "Day")}{attr}";
 	}
 }

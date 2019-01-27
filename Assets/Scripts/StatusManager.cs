@@ -107,7 +107,8 @@ public class StatusManager : MonoBehaviour {
     }
 
     // TODO: Not this one
-    public bool Sick => _status.Energy < 20;
+    public bool Normal => _status.Energy > 40;
+    public bool LieDown => _status.Energy <= 10;
 
     public event Action<LocationType, LocationType> OnLocationChange;
     public event Action<GameTime, GameTime> OnGameTimeChange;
