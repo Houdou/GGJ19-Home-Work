@@ -98,6 +98,7 @@ public class GameMaster : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.U)) {
             _eventManager.ProgressTime(GameTime.oneHour);
+            _statusManager.ProgressTime(GameTime.oneHour);
         }
     }
 
@@ -131,8 +132,7 @@ public class GameMaster : MonoBehaviour {
             DictTodoCardData.Add(card.name, card);
         }
         
-        var eventData = Resources.LoadAll("Data/Events", typeof(EventData))
-            .Cast<EventData>().ToArray();
+        var eventData = Resources.LoadAll("Data/Events", typeof(EventData)).Cast<EventData>().ToArray();
 
         DictEventData = new Dictionary<string, EventData>();
         foreach (var card in eventData) {
@@ -181,7 +181,7 @@ public class GameMaster : MonoBehaviour {
             trigger.Inactive = false;
             DictGameTimeStatusTriggerData.Add(trigger.name, trigger);
         }
-
+        
         var spritesResources = Resources.LoadAll("Sprites", typeof(Sprite)).Cast<Sprite>().ToArray();
 
         DictSpriteResources = new Dictionary<string, Sprite>();
@@ -223,7 +223,7 @@ public class GameMaster : MonoBehaviour {
         }
 
         foreach (var trigger in DictGameTimeStatusTriggerData.Values) {
-            if (trigger.IsInnate && trigger.Field == StatusFields.GameTime) {                
+            if (trigger.IsInnate && trigger.Field == StatusFields.GameTime) {
                 _statusManager.AddGameTimeStatusTrigger(trigger);
             }
         }
@@ -233,6 +233,8 @@ public class GameMaster : MonoBehaviour {
                 _statusManager.AddLocationStatusTrigger(trigger);
             }
         }
+
+        _statusManager.Tick();
     }
 
     #endregion

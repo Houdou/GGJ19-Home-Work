@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 151c46ae4a574c7386fb3d3dc3fab4f8, type: 3}
+  m_Name: HomeLocationOptions
+  m_EditorClassIdentifier: 
+  Name: 
+  ActionCardsToGenerate:
+  - {fileID: 11400000, guid: 7be314b89e6c64b01b3e03de21b31903, type: 2}
+  - {fileID: 11400000, guid: 1057ea485bfa94f4ab2442f2351c665a, type: 2}
+  TodoCardsToGenerate: []
+  IsEmergency: 0

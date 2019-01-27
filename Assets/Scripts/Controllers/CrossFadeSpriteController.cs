@@ -19,7 +19,7 @@ public class CrossFadeSpriteController : MonoBehaviour {
 
 	void Update() {
 		if(Fading) {
-			if(!IsFull) {
+			if(!IsFull || PreviousId == "PlaceHolder") {
 				Current.Fade(Config.SpriteFadeOutColor);
 			}
 			Next.FadeSlow(Config.SpriteFadeInColor);
@@ -33,6 +33,7 @@ public class CrossFadeSpriteController : MonoBehaviour {
 	}
 
 	protected bool Fading;
+	protected bool FadingOut;
 	protected string PreviousId;
 
 	public bool IsFull = false;
@@ -48,7 +49,6 @@ public class CrossFadeSpriteController : MonoBehaviour {
 			Next.color = Config.SpriteFadeOutColor;
 		}
 
-		// Fading
 		Next.sprite = GameMaster.Instance.GetSpriteResources(id);
 		PreviousId = id;
 		Fading = true;

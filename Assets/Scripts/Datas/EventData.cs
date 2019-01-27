@@ -7,8 +7,8 @@ public class EventData : ScriptableObject {
     public string Name = "Event";
 
     public GenerateCardsData[] CardsGenerations;
+    public GenerateCardsData[] CardsDeletions;
     public GenerateDelayedCardsData[] DelayedCardsGenerations;
-    
     
     public StatusChangeData[] StatusChanges;
     public GameEnding Ending;

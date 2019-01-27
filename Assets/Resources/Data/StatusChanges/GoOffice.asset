@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14a4fac9c036475f82efde4f69f9aa3f, type: 3}
   m_Name: GoOffice
   m_EditorClassIdentifier: 
-  Name: StatusChange
+  Name: 
   Time:
     Day: 0
     Hour: 0

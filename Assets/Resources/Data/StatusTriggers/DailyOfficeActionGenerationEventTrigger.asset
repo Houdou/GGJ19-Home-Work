@@ -17,12 +17,14 @@ MonoBehaviour:
   ConditionOperator: 3
   IsInnate: 1
   Repeat: 1
-  Inactive: 0
+  Inactive: 1
   DeltaTime:
     Day: 2
     Hour: 0
   TriggerEvents:
   - {fileID: 11400000, guid: d4e3fd3336f2d4b2ca320b05df48a116, type: 2}
+  - {fileID: 11400000, guid: 8b4f89712f43c45a480a07237be7ecc0, type: 2}
+  - {fileID: 11400000, guid: 3fe0bdfa75a754636be5f920f270d209, type: 2}
   TargetGameTime:
     Day: 1
     Hour: 0

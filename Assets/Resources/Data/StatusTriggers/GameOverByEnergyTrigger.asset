@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: GameOverByEnergyTrigger
   Field: 2
-  ConditionOperator: 4
+  ConditionOperator: 5
   IsInnate: 1
   Repeat: 0
+  Inactive: 0
   DeltaTime:
     Day: 0
     Hour: 0

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 151c46ae4a574c7386fb3d3dc3fab4f8, type: 3}
+  m_Name: OfficeLocationOptions
+  m_EditorClassIdentifier: 
+  Name: 
+  ActionCardsToGenerate:
+  - {fileID: 11400000, guid: 25e6e787cff78421eb3cdb4a8d461baf, type: 2}
+  - {fileID: 11400000, guid: 2f2a595506d714b38b85fae422b79a24, type: 2}
+  TodoCardsToGenerate: []
+  IsEmergency: 0

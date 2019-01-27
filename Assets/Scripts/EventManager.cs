@@ -114,19 +114,21 @@ public class EventManager : MonoBehaviour {
         if (ev.Name == "RestEvent" || ev.Name == "NapEvent") {
             var time = StatusManager.Instance.RemainingTimeInDay;
             
-            Debug.Log(time);
-
-            var restEvent = GameMaster.Instance.DictEventData[ev.Name];
-            foreach (var changes in restEvent.StatusChanges) {
+            foreach (var changes in ev.StatusChanges) {
                 for (int i = 0; i < time.TotalHourInGame; i++) {
                     StatusManager.Instance.ApplyStatusChange(changes);
                 }
             }
             
-            ClearActionCards();
+            ProgressTime(time);
             return;
         }
 
+        foreach (var deleteData in ev.CardsDeletions) {
+            DeleteCards(deleteData);
+            _listActionCards.Clear();
+        }
+        
         foreach (var statusChange in ev.StatusChanges) {
             StatusManager.Instance.ApplyStatusChange(statusChange);
         }
@@ -134,6 +136,7 @@ public class EventManager : MonoBehaviour {
         foreach (var generateData in ev.CardsGenerations) {
             GenerateCard(generateData);
         }
+        
 
         foreach (var generateData in ev.DelayedCardsGenerations) {
             var timerTrigger = ScriptableObject.CreateInstance<GameTimeStatusTriggerData>();
@@ -165,6 +168,8 @@ public class EventManager : MonoBehaviour {
 
 
     public void GenerateCard(GenerateCardsData data) {
+        Debug.Log($"Create cards at {data.name}");
+        
         foreach (var actionCard in data.ActionCardsToGenerate) {
             CreateCard(actionCard, data.IsEmergency);
         }
@@ -242,7 +247,7 @@ public class EventManager : MonoBehaviour {
         var newCard = Instantiate(CardPrefab, pos, Quaternion.identity, parentTransform);
         var cardController = newCard.GetComponent<CardController>();
         cardController.DetailOffset = new Vector2(0f, 100f);
-        cardController.name = data.Name;
+        cardController.name = data.name;
         cardController.PinPos = pos;
         cardController.GetComponentInChildren<TextMeshProUGUI>().text = data.Name;
         _listActionCards.Add(cardController);
@@ -260,7 +265,7 @@ public class EventManager : MonoBehaviour {
 
         var newCard = Instantiate(TodoPrefab, pos, Quaternion.identity, parentTransform);
         var cardController = newCard.GetComponent<CardController>();
-        cardController.name = data.Name;
+        cardController.name = data.name;
         cardController.PinPos = pos;
         cardController.GetComponentInChildren<TextMeshProUGUI>().text = data.Name;
         _listTodoCards.Add(cardController);
@@ -273,16 +278,28 @@ public class EventManager : MonoBehaviour {
         ClearTodoCards();
     }
 
-    public void ClearCardOf(string name) {
+
+    public void DeleteCards(GenerateCardsData data) {
+        foreach (var card in data.ActionCardsToGenerate) {
+            DeleteCard(card);
+        }
+//        foreach (var card in data.ActionCardsToGenerate) {
+//            DeleteCard(card);
+//        }
+    }
+    public void DeleteCard(ActionCardData data) {
         CardController toRemove = null;
         foreach (var card in _listActionCards) {
-            if (card.name == name) {
+            if (card.name == data.name) {
                 toRemove = card;
             }
         }
+        
+        Debug.Log($"To remove : {toRemove}");
 
         if (!toRemove) return;
         OnCardDestroyed?.Invoke(toRemove);
+        _listActionCards.Remove(toRemove);
         Destroy(toRemove.gameObject);
     }
 
@@ -308,7 +325,5 @@ public class EventManager : MonoBehaviour {
         foreach (var ev in _listTodo) {
             ev.ProgressInTime(time);
         }
-
-        StatusManager.Instance.ProgressTime(time);
     }
 }

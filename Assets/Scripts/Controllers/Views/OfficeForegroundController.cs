@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class OfficeForegroundController : CrossFadeSpriteController {
 	protected override string GetResourceId() {
 		var statusManager = StatusManager.Instance;

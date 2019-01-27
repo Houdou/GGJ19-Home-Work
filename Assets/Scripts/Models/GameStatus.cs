@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 public class GameStatus {
@@ -28,9 +29,11 @@ public class GameStatus {
 				return;
 			
 			var prev = _location;
+			_location = value;
 			if (value != prev) {
 				OnLocationChange?.Invoke(value, prev);
 			}
+
 		}
 	}
 
@@ -44,7 +47,6 @@ public class GameStatus {
 			if (diff != 0) {
 				OnMoneyChange?.Invoke(value, diff);
 			}
-
 		}
 	}
 
@@ -255,5 +257,9 @@ public class GameStatus {
 			_projectProgress = status.ProjectProgress;
 		}
 
+	}
+
+	public void Tick() {
+		OnGameTimeChange?.Invoke(CurrentTime, GameTime.zero);
 	}
 }

@@ -258,7 +258,7 @@ public class StatusManager : MonoBehaviour {
 
     public void AddGameTimeStatusTrigger(GameTimeStatusTriggerData trigger) {
         if (trigger.Field != StatusFields.GameTime) return;
-
+        
         var handler = new Action<GameTime, GameTime>((value, diff) => {
             if (trigger.Inactive || !trigger.Test(value)) return;
 
@@ -285,11 +285,6 @@ public class StatusManager : MonoBehaviour {
             };
         });
         _status.OnGameTimeChange += handler;
-
-        // Handle immediate invoke
-        if (trigger.Test(CurrentTime)) {
-            handler(CurrentTime, GameTime.zero);
-        }
     }
 
     public void AddLocationStatusTrigger(LocationStatusTriggerData trigger) {
@@ -301,26 +296,29 @@ public class StatusManager : MonoBehaviour {
             foreach (var ev in trigger.TriggerEvents) {
                 EventManager.Instance.ProcessEvent(ev);
             }
+
+            trigger.Inactive = true;
         });
-        _status.OnLocationChange += (value, diff) => {
-            handler(value, diff);
-            if (trigger.Repeat) return;
-            _status.OnLocationChange -= handler;
-        };
+        _status.OnLocationChange += handler;
     }
 
     public void ApplyStatusChange(StatusChangeData changes) {
         Debug.Log($"Applied {changes}");
         _status.Merge(changes);
-
+        
         // TODO: Check date limit
         if (changes.OverrideTime) {
             _status.CurrentTime = changes.Time;
         } else if (changes.Time != GameTime.zero) {
             EventManager.Instance.ProgressTime(changes.Time);
+            _status.CurrentTime += changes.Time;
         }
 
         UpdateUI();
+    }
+    
+    public void Tick() {
+        _status.Tick();
     }
 
     #endregion
