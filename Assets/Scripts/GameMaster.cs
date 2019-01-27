@@ -119,7 +119,7 @@ public class GameMaster : MonoBehaviour {
 
         DictActionCardData = new Dictionary<string, ActionCardData>();
         foreach (var card in actionCardData) {
-            DictActionCardData.Add(card.Name, card);
+            DictActionCardData.Add(card.name, card);
         }
 
         var todoCardData = Resources.LoadAll("Data/TodoCards", typeof(TodoCardData))
@@ -127,7 +127,7 @@ public class GameMaster : MonoBehaviour {
 
         DictTodoCardData = new Dictionary<string, TodoCardData>();
         foreach (var card in todoCardData) {
-            DictTodoCardData.Add(card.Name, card);
+            DictTodoCardData.Add(card.name, card);
         }
 
         var generateCardsData = Resources.LoadAll("Data/GenerateCards", typeof(GenerateCardsData))
@@ -135,7 +135,7 @@ public class GameMaster : MonoBehaviour {
 
         DictGenerateCardsData = new Dictionary<string, GenerateCardsData>();
         foreach (var card in generateCardsData) {
-            DictGenerateCardsData.Add(card.Name, card);
+            DictGenerateCardsData.Add(card.name, card);
         }
         
         var generateDelayedCardsData = Resources.LoadAll("Data/GenerateDelayedCards", typeof(GenerateDelayedCardsData))
@@ -143,7 +143,7 @@ public class GameMaster : MonoBehaviour {
 
         DictGenerateDelayedCardsData = new Dictionary<string, GenerateDelayedCardsData>();
         foreach (var card in generateDelayedCardsData) {
-            DictGenerateDelayedCardsData.Add(card.Name, card);
+            DictGenerateDelayedCardsData.Add(card.name, card);
         }
 
         var intStatusTriggerData = Resources.LoadAll("Data/StatusTriggers", typeof(IntStatusTriggerData))
@@ -151,7 +151,7 @@ public class GameMaster : MonoBehaviour {
 
         DictIntStatusTriggerData = new Dictionary<string, IntStatusTriggerData>();
         foreach (var trigger in intStatusTriggerData) {
-            DictIntStatusTriggerData.Add(trigger.Name, trigger);
+            DictIntStatusTriggerData.Add(trigger.name, trigger);
         }
         
         var locationStatusTriggerData = Resources.LoadAll("Data/StatusTriggers", typeof(LocationStatusTriggerData))
@@ -159,7 +159,7 @@ public class GameMaster : MonoBehaviour {
 
         DictLocationStatusTriggerData = new Dictionary<string, LocationStatusTriggerData>();
         foreach (var trigger in locationStatusTriggerData) {
-            DictLocationStatusTriggerData.Add(trigger.Name, trigger);
+            DictLocationStatusTriggerData.Add(trigger.name, trigger);
         }
 
         var gameTimeStatusTriggerData = Resources.LoadAll("Data/StatusTriggers", typeof(GameTimeStatusTriggerData))
@@ -167,7 +167,7 @@ public class GameMaster : MonoBehaviour {
 
         DictGameTimeStatusTriggerData = new Dictionary<string, GameTimeStatusTriggerData>();
         foreach (var trigger in gameTimeStatusTriggerData) {
-            DictGameTimeStatusTriggerData.Add(trigger.Name, trigger);
+            DictGameTimeStatusTriggerData.Add(trigger.name, trigger);
         }
 
         var spritesResources = Resources.LoadAll("Sprites", typeof(Sprite)).Cast<Sprite>().ToArray();

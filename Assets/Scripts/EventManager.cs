@@ -112,7 +112,6 @@ public class EventManager : MonoBehaviour {
         Debug.Log($"Processing {ev}");
         // TODO: Special handling for some events
 
-
         foreach (var statusChange in ev.StatusChanges) {
             StatusManager.Instance.ApplyStatusChange(statusChange);
         }
